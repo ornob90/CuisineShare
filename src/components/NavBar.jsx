@@ -38,8 +38,8 @@ const NavBar = () => {
   );
   return (
     <Container>
-      <div className="w-full fixed top-0 left-0 flex justify-center pb-3 shadow-[0_0_5px_rgba(0,0,0,0.15)]">
-        <nav className=" z-[5]  grid w-[90%] grid-cols-2 lg:grid-cols-3 pt-4">
+      <div className=" bg-gray-200  w-full fixed top-0 left-0 flex justify-center pb-3 shadow-[0_0_5px_rgba(0,0,0,0.15)]">
+        <nav className="grid w-[90%] grid-cols-2 lg:grid-cols-3 pt-4">
           <div className="">
             <img
               className="w-[65%] sm:w-[50%] md:w-[40%] lg:w-[30%]"

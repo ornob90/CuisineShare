@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Container from "./Shared/Container";
 import { NavLink } from "react-router-dom";
 import Button from "./Shared/Button";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import NavContext from "../context/NavContext";
 
 const NavBar = () => {
-  const [menu, setMenu] = useState(true);
+  const { menu, handleMenu } = useContext(NavContext);
 
   const navLinks = (
     <>
@@ -58,23 +59,20 @@ const NavBar = () => {
               Sign Out
             </Button>
             <HiMenuAlt3
-              onClick={() => setMenu(!menu)}
+              onClick={handleMenu}
               className="block text-3xl lg:hidden"
             />
           </div>
           <ul
-            className={`pr-[5%] absolute top-0 ${
-              menu ? "right-[-10%]" : "-right-[110%] md:-right-[100%]"
-            } bg-gray-300 z-[10] w-full sm:w-[60%] md:w-[40%] h-screen flex flex-col pt-10 items-center lg:hidden gap-8 text-xl md:text-2xl font-medium duration-500`}
+            className={` z-[100] pr-[5%] absolute top-0 ${
+              menu ? "right-[-5%]" : "-right-[110%] md:-right-[100%]"
+            } bg-gray-300 z- w-full sm:w-[60%] md:w-[40%] h-screen flex flex-col pt-10 items-center lg:hidden gap-8 text-xl md:text-2xl font-medium duration-500`}
           >
-            <li className="w-[80%] mb-10 text-3xl flex justify-between md:justify-end items-center">
+            <li className="relative z-10 w-[80%] mb-10 text-3xl flex justify-between md:justify-end items-center">
               <Button classes="px-3 py-2 text-base  md:hidden text-white  bg-yellow-500 rounded-full  block z-[25]">
                 Sign Out
               </Button>
-              <AiOutlineCloseCircle
-                onClick={() => setMenu(!menu)}
-                className=""
-              />
+              <AiOutlineCloseCircle onClick={handleMenu} className="" />
             </li>
             {navLinks}
           </ul>

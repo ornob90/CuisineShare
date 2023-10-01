@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import Button from "./Shared/Button";
+import NavContext from "../context/NavContext";
 
 const Banner = () => {
+  const { menu } = useContext(NavContext);
+
   return (
-    <div className="bg-gray-200 ">
+    <div className="bg-gray-200">
       <div className="min-h-[90vh] flex  flex-col md:flex-row items-center justify-center w-[90%] mx-auto">
         <div className="pt-[20%] md:pt-0 w-full md:w-[60%] flex flex-col justify-center md:items-left items-center gap-4">
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold sm:text-5xl xl:text-6xl">
+          <div className="text-center md:text-left flex flex-col justify-center items-center md:justify-left z-2">
+            <h1 className="w-full text-4xl font-bold sm:text-5xl xl:text-6xl">
               Cooking Together, <br />
               Sharing Forever
             </h1>
@@ -14,13 +18,26 @@ const Banner = () => {
               Cook, Share, Create Memories. Join a culinary community where
               every recipe is a shared forever moment
             </p>
+            <div
+              className={`${
+                menu ? "scale-0 sm:scale-1" : "scale-1"
+              } relative z-1 w-full flex justify-center md:justify-start duration-[.3s]`}
+            >
+              <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4">
+                <input
+                  className=" border focus:outline-none w-full py-3 pl-2 rounded-lg text-md "
+                  type="text"
+                  placeholder="Search Your Meal"
+                />
+                <Button classes="absolute top-[35%] right-[2%] bg-yellow-500 py-2 px-3 text-sm rounded-md text-white ">
+                  Search
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center w-full md:w-[40%] md:block">
-          <img
-            src="https://o.remove.bg/downloads/3496bc67-1bc4-485b-a34b-9678054235e4/photo-1546069901-ba9599a7e63c-removebg-preview.png"
-            alt=""
-          />
+          <img src="/banner2.png" alt="" />
         </div>
       </div>
     </div>

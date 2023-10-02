@@ -43,6 +43,14 @@ const NavBar = () => {
       >
         <Button>Favorites</Button>
       </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
+        }
+        to="/details"
+      >
+        <Button>Details</Button>
+      </NavLink>
     </>
   );
   return (

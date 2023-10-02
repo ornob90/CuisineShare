@@ -53,15 +53,15 @@ const Home = () => {
       <RecipeHighlight title="Super Delicious" recipes={recipes} />
       <RecipeHighlight title="Sweet Tooth" recipes={sweets} />
       <div className="my-10 bg-yellow-300 py-28 w-[90%] mx-auto flex flex-col justify-center items-center text-center">
-        <h1 className="mb-2 text-2xl md:text-4xl font-semibold">
+        <h1 className="mb-2 text-2xl font-semibold md:text-4xl">
           Deliciousness To Your Inbox
         </h1>
-        <p className="text-sm md:text-base mb-4 text-gray-600 font-medium">
+        <p className="mb-4 text-sm font-medium text-gray-600 md:text-base">
           Enjoy weekly hand picked recipes and recommendations
         </p>
         <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
           <input
-            className=" border focus:outline-none w-full py-3 pl-5 rounded-l-lg text-md "
+            className="w-full py-3 pl-5 border rounded-l-lg focus:outline-none text-md"
             type="text"
             placeholder="Join Here"
           />

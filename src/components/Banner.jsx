@@ -10,9 +10,9 @@ const Banner = () => {
       <div className="min-h-[90vh] flex  flex-col md:flex-row items-center justify-center w-[90%] mx-auto">
         <div className="pt-[20%] md:pt-0 w-full md:w-[60%] flex flex-col justify-center md:items-left items-center gap-4">
           <div className="text-center md:text-left flex flex-col justify-center items-center md:justify-left z-2">
-            <h1 className="w-full text-4xl font-bold sm:text-5xl xl:text-6xl">
-              Cooking Together, <br />
-              Sharing Forever
+            <h1 className="w-full text-4xl font-[900] sm:text-5xl xl:text-6xl">
+              Cooking <span className="text-yellow-500">Together</span>, <br />
+              <span className="text-yellow-500">Sharing</span> Forever
             </h1>
             <p className="text-center md:text-left text-sm md:text-base pt-4 mx-auto md:ml-0 text-gray-600 w-[70%]">
               Cook, Share, Create Memories. Join a culinary community where
@@ -29,7 +29,7 @@ const Banner = () => {
                   type="text"
                   placeholder="Search Your Meal"
                 />
-                <Button classes="absolute top-[35%] right-[2%] bg-yellow-500 py-2 px-3 text-sm rounded-md text-white ">
+                <Button classes="absolute top-[35%] right-[2%] bg-black py-2 px-3 text-sm rounded-md text-white ">
                   Search
                 </Button>
               </div>

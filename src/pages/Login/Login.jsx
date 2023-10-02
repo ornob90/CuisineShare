@@ -11,29 +11,29 @@ const Login = () => {
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="bg-gray-200 p-4 absolute flex flex-col gap-4 rounded-xl top-[20%] left-[40%] w-[26%]">
+        <div className="bg-gray-200 p-4 absolute flex flex-col gap-4 rounded-xl top-[20%]  left-[20%] lg:left-[40%] w-[60%] sm:w-[50%] md:w-[40%] lg:w-[26%]">
           <input
-            className="pl-5 py-3 rounded-lg text-sm focus:outline-none"
+            className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
             type="text"
             placeholder="Enter Email"
           />
           <input
-            className="pl-5 py-3 rounded-lg text-sm focus:outline-none"
+            className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
             type="text"
             placeholder="Enter Password"
           />
           <p className="w-max text-[12px] border border-b-gray-400">
             Forget Password
           </p>
-          <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold">
+          <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base">
             Sign In
           </Button>
           <div className="flex gap-2 w-full items-center justify-between">
             <hr className="border border-gray-400 w-[35%]" />
-            <p className="text-sm">Login With</p>
+            <p className="text-[8px] md:text-sm">Login With</p>
             <hr className="border border-gray-400 w-[35%]" />
           </div>
-          <div className="flex justify-end  mx-auto items-center">
+          <div className="flex flex-wrap justify-end  mx-auto items-center">
             <div className="w-[33%] flex justify-center items-center">
               <img
                 src="https://o.remove.bg/downloads/30ff15fc-1b5b-40e3-92bf-4fa5bc87d93b/image-removebg-preview.png"

@@ -47,7 +47,7 @@ const NavBar = () => {
   );
   return (
     <Container>
-      <div className="max-w-[1440px] relative">
+      <div className="max-w-[1440px] relative z-[10]">
         <div className="bg-gray-200  w-full fixed top-0 left-0 flex justify-center pb-3 shadow-[0_0_5px_rgba(0,0,0,0.15)]">
           <nav className="grid w-[90%] grid-cols-2 lg:grid-cols-3 pt-4">
             <div className="">

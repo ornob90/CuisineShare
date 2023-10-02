@@ -7,8 +7,8 @@ import RecipePost from "../../components/Shared/RecipePost";
 const RecipeFeed = () => {
   return (
     <Container>
-      <div className=" bg-white sticky top-[11%] flex justify-between items-center w-full min-h-[100px]">
-        <div className="w-[40%]  relative  sm:w-[55%] pt-4 flex">
+      <div className=" bg-white sticky top-[8%] sm:top-[15%] md:top-[11%] grid grid-cols-1 md:grid-cols-2 w-full place-content-center">
+        <div className="relative pt-4 flex ">
           <input
             className=" border focus:outline-none w-full py-3 pl-5 rounded-l-lg text-md "
             type="text"

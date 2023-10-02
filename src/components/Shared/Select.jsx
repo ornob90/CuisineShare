@@ -4,7 +4,7 @@ const Select = ({ name, options }) => {
   return (
     <div>
       <select className="select select-primary w-full max-w-xs border-none focus:outline-none">
-        <option selected>{name}</option>
+        <option defaultValue>{name}</option>
         {options.map((option) => (
           <option key={option}>{option}</option>
         ))}

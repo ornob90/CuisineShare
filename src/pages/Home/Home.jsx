@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../../components/Shared/Container";
 import Banner from "../../components/Banner";
 import RecipeHighlight from "../../components/Shared/RecipeHighlight";
+import Button from "../../components/Shared/Button";
 
 const Home = () => {
   const recipes = [
@@ -50,6 +51,27 @@ const Home = () => {
       <Banner />
       <RecipeHighlight title="Super Delicious" recipes={recipes} />
       <RecipeHighlight title="Sweet Tooth" recipes={sweets} />
+      <div className="my-10 bg-yellow-300 py-28 w-[90%] mx-auto flex flex-col justify-center items-center text-center">
+        <h1 className="mb-2 text-2xl md:text-4xl font-semibold">
+          Deliciousness To Your Inbox
+        </h1>
+        <p className="text-sm md:text-base mb-4 text-gray-600 font-medium">
+          Enjoy weekly hand picked recipes and recommendations
+        </p>
+        <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
+          <input
+            className=" border focus:outline-none w-full py-3 pl-5 rounded-l-lg text-md "
+            type="text"
+            placeholder="Join Here"
+          />
+          <Button classes="bg-black py-3 px-8 text-sm rounded-r-lg text-white ">
+            join
+          </Button>
+        </div>
+        <p className="text-[10px] pt-4">
+          By joining our website you agree to our Terms and Conditions
+        </p>
+      </div>
     </Container>
   );
 };

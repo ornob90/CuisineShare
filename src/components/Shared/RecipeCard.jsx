@@ -3,7 +3,7 @@ import { Rating } from "@mui/material";
 
 const RecipeCard = ({ image, title }) => {
   return (
-    <div className=" ">
+    <div className="duration-300">
       <div className="w-full h-[300px]">
         <img
           src={image}
@@ -11,7 +11,7 @@ const RecipeCard = ({ image, title }) => {
           className="w-full h-full object-cover rounded-t-lg"
         />
       </div>
-      <Rating className="pt-4" name="read-only" value={3.5} readOnly />
+      <Rating className="pt-4 -z-1" name="read-only" value={3.5} readOnly />
       <h1 className="text-gray-600 font-medium">{title}</h1>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from "react";
 import { Rating } from "@mui/material";
 
-const RecipeCard = ({ image, title }) => {
+const RecipeCard = ({ image, title, height }) => {
   return (
-    <div className="duration-300">
-      <div className="w-full h-[300px]">
+    <div className={`duration-300 min-h-[200px]`}>
+      <div className="w-full h-[65%] object-cover">
         <img
           src={image}
           alt={title}

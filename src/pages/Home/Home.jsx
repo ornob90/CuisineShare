@@ -46,6 +46,7 @@ const Home = () => {
       title: "Berry Madness Biscuits",
     },
   ];
+
   return (
     <Container>
       <Banner />

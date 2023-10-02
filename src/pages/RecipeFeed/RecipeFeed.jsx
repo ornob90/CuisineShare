@@ -2,11 +2,12 @@ import { Container } from "@mui/material";
 import React from "react";
 import Button from "../../components/Shared/Button";
 import Select from "../../components/Shared/Select";
+import RecipePost from "../../components/Shared/RecipePost";
 
 const RecipeFeed = () => {
   return (
     <Container>
-      <div className="mt-[100px] flex justify-between items-center w-full ">
+      <div className=" bg-white sticky top-[11%] flex justify-between items-center w-full min-h-[100px]">
         <div className="w-[40%]  relative  sm:w-[55%] pt-4 flex">
           <input
             className=" border focus:outline-none w-full py-3 pl-5 rounded-l-lg text-md "
@@ -35,6 +36,20 @@ const RecipeFeed = () => {
             ]}
           />
         </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-8">
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
+        <RecipePost />
       </div>
     </Container>
   );

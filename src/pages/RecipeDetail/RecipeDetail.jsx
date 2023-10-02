@@ -8,7 +8,7 @@ const RecipeDetail = () => {
     <Container>
       <div className="w-[90%] mx-auto">
         <h1 className="mb-10 text-4xl font-bold mt-28">Burger</h1>
-        <div className="w-full h-[500px] ">
+        <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] ">
           <img
             src="https://static.onecms.io/wp-content/uploads/sites/19/2019/03/04/creamy-four-cheese-pasta-with-spinach-1812-p24-2000.jpg"
             alt=""
@@ -38,7 +38,7 @@ const RecipeDetail = () => {
             brown sugar, ground ginger, minced garlic, cornsarch, chicken garlic
           </p>
         </div>
-        <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
+        <div className="mt-10 z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
           <input
             className="w-full py-3 pl-5 border rounded-l-lg focus:outline-none text-md"
             type="text"
@@ -55,7 +55,7 @@ const RecipeDetail = () => {
                 <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
                 <p>Ornob</p>
               </div>
-              <p className="w-[60%] mt-5">
+              <p className="text-sm md:text-base w-full lg:w-[60%] mt-5">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt
                 mollitia, amet rerum natus reiciendis suscipit officiis ea unde
                 neque ipsum!

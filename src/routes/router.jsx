@@ -3,6 +3,7 @@ import Root from "../layout/Root";
 import Home from "../pages/Home/Home";
 import About from "../pages/About/About";
 import RecipeFeed from "../pages/RecipeFeed/RecipeFeed";
+import Favorites from "../pages/Favorites/Favorites";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/news-feed",
         element: <RecipeFeed />,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
     ],
   },

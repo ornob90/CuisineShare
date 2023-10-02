@@ -7,10 +7,10 @@ const Banner = () => {
 
   return (
     <div className="bg-gray-200">
-      <div className="min-h-[90vh] flex  flex-col md:flex-row items-center justify-center w-[90%] mx-auto">
+      <div className="max-h-[800px] h-[90vh] flex  flex-col md:flex-row items-center justify-center w-[90%] mx-auto">
         <div className="pt-[20%] md:pt-0 w-full md:w-[60%] flex flex-col justify-center md:items-left items-center gap-4">
           <div className="text-center md:text-left flex flex-col justify-center items-center md:justify-left z-2">
-            <h1 className="w-full text-4xl font-[900] sm:text-5xl xl:text-6xl">
+            <h1 className="w-full text-4xl font-[900\] sm:text-5xl xl:text-6xl">
               Cooking <span className="text-yellow-500">Together</span>, <br />
               <span className="text-yellow-500">Sharing</span> Forever
             </h1>

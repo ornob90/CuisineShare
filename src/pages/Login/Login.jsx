@@ -4,8 +4,10 @@ import Button from "../../components/Shared/Button";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillTwitterCircle } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">
@@ -27,12 +29,21 @@ const Login = () => {
             type="text"
             placeholder="Enter Password"
           />
-          <p className="w-max text-[12px] border border-b-gray-400">
+          <p className="w-max text-[12px] border border-b-gray-400 active:scale-95 duration-300 cursor-pointer">
             Forget Password
           </p>
           <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base">
             Sign In
           </Button>
+          <div className="flex justify-left gap-2 items-center text-[12px] ">
+            <p>New Here?</p>
+            <Link
+              className="border border-b-gray-400 active:scale-95 duration-300 cursor-pointer font-bold"
+              onClick={() => navigate("/signup")}
+            >
+              Register
+            </Link>
+          </div>
           <div className="flex gap-2 w-full items-center justify-between">
             <hr className="border border-gray-400 w-[35%]" />
             <p className="text-[8px] md:text-sm">Login With</p>
@@ -62,9 +73,9 @@ const Login = () => {
             </div>
           </div> */}
           <div className="flex justify-evenly items-center  text-3xl">
-            <BsFacebook className="text-blue-600 " />
-            <FcGoogle className="" />
-            <AiFillTwitterCircle className="text-blue-600 text-4xl" />
+            <BsFacebook className=" cursor-pointer text-blue-600 " />
+            <FcGoogle className=" cursor-pointer " />
+            <AiFillTwitterCircle className="text-blue-600 text-4xl cursor-pointer " />
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import RecipeDetail from "../pages/RecipeDetail/RecipeDetail";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Profile from "../pages/Profile/Profile";
+import ProfileAbout from "../components/Profile/ProfileAbout";
+import ProfileRecipes from "../components/Profile/ProfileRecipes";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,16 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+        children: [
+          {
+            path: "/profile",
+            element: <ProfileRecipes />,
+          },
+          {
+            path: "profile-about",
+            element: <ProfileAbout />,
+          },
+        ],
       },
 
       {

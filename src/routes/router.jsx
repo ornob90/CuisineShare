@@ -7,6 +7,7 @@ import Favorites from "../pages/Favorites/Favorites";
 import RecipeDetail from "../pages/RecipeDetail/RecipeDetail";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
+import Profile from "../pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+
       {
         path: "/news-feed",
         element: <RecipeFeed />,

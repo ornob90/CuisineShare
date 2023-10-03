@@ -47,9 +47,9 @@ const NavBar = () => {
         className={({ isActive }) =>
           isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
         }
-        to="/signup"
+        to="/profile"
       >
-        <Button>Signup</Button>
+        <Button>Profile</Button>
       </NavLink>
     </>
   );

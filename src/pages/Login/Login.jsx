@@ -1,17 +1,22 @@
 import React from "react";
 import Container from "../../components/Shared/Container";
 import Button from "../../components/Shared/Button";
+import { BsFacebook } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
+import { AiFillTwitterCircle } from "react-icons/ai";
 
 const Login = () => {
   return (
     <Container>
-      <div className="relative min-w-screen h-screen min-h-[200px]">
-        <img
+      <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">
+        {/* <img
           src="https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80"
           alt=""
           className="w-full h-full object-cover"
-        />
-        <div className="bg-gray-200 p-4 absolute flex flex-col gap-4 rounded-xl top-[20%]  left-[20%] lg:left-[40%] w-[60%] sm:w-[50%] md:w-[40%] lg:w-[26%]">
+        /> 
+        bg-gray-200 p-4 absolute flex flex-col gap-4 rounded-xl top-[20%]  left-[20%] lg:left-[40%] w-[60%] sm:w-[50%] md:w-[40%] lg:w-[26%]*/}
+        <div className="bg-gray-200 p-4  flex flex-col gap-4 rounded-xl   w-[70%] sm:w-[50%] md:w-[40%] lg:w-[26%]">
+          <p className="text-center text-3xl font-[900]">Login</p>
           <input
             className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
             type="text"
@@ -33,7 +38,7 @@ const Login = () => {
             <p className="text-[8px] md:text-sm">Login With</p>
             <hr className="border border-gray-400 w-[35%]" />
           </div>
-          <div className="flex flex-wrap justify-end  mx-auto items-center">
+          {/* <div className="flex flex-wrap justify-end  mx-auto items-center">
             <div className="w-[33%] flex justify-center items-center">
               <img
                 src="https://o.remove.bg/downloads/30ff15fc-1b5b-40e3-92bf-4fa5bc87d93b/image-removebg-preview.png"
@@ -55,6 +60,11 @@ const Login = () => {
                 className="w-[45%]"
               />
             </div>
+          </div> */}
+          <div className="flex justify-evenly items-center  text-3xl">
+            <BsFacebook className="text-blue-600 " />
+            <FcGoogle className="" />
+            <AiFillTwitterCircle className="text-blue-600 text-4xl" />
           </div>
         </div>
       </div>

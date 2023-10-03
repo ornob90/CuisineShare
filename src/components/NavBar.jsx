@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Container from "./Shared/Container";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "./Shared/Button";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -8,6 +8,7 @@ import NavContext from "../context/NavContext";
 
 const NavBar = () => {
   const { menu, handleMenu } = useContext(NavContext);
+  const navigate = useNavigate();
 
   const navLinks = (
     <>
@@ -43,14 +44,6 @@ const NavBar = () => {
       >
         <Button>Favorites</Button>
       </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
-        }
-        to="/profile"
-      >
-        <Button>Profile</Button>
-      </NavLink>
     </>
   );
   return (
@@ -70,7 +63,10 @@ const NavBar = () => {
               {navLinks}{" "}
             </div>
             <div className="flex items-center justify-end gap-6">
-              <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
+              <div
+                onClick={() => navigate("/profile")}
+                className="h-[40px] w-[40px] rounded-full border-black border-2"
+              ></div>
 
               <Button classes="px-2 py-1 md:px-3 md:py-2 text-sm md:text-base md:font-medium text-white  bg-yellow-500 rounded-full hidden md:block">
                 Sign Out

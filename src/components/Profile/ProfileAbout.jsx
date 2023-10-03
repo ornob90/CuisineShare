@@ -4,19 +4,17 @@ const ProfileAbout = () => {
   return (
     <div className="my-10 w-[80%] mx-auto">
       <h3 className="mb-5 font-semibold text-lg">Bio</h3>
-      <textarea
-        className="textarea textarea-bordered border-black"
+      <input
+        type="text"
         placeholder="Bio"
-        rows={5}
-        cols={70}
-      ></textarea>
-      <h3 className="mb-5 font-semibold text-lg">Address</h3>
-      <textarea
-        className="textarea textarea-bordered border-black"
+        className="input input-bordered w-full max-w-xs"
+      />
+      <h3 className="my-5 font-semibold text-lg">Address</h3>
+      <input
+        type="text"
         placeholder="Address"
-        rows={1}
-        cols={70}
-      ></textarea>
+        className=" input input-bordered w-full max-w-xs"
+      />
     </div>
   );
 };

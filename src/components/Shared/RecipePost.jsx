@@ -24,7 +24,18 @@ const RecipePost = () => {
         <div className="flex justify-between">
           <h1 className="mb-2 text-3xl font-bold">Burger</h1>
           <div className="flex gap-4 text-2xl">
-            <AiOutlineHeart className="text-3xl" />
+            {isLiked ? (
+              <AiTwotoneHeart
+                className="active:scale-95 duration-300 text-3xl text-yellow-400"
+                onClick={() => setIsLiked(!isLiked)}
+              />
+            ) : (
+              <AiOutlineHeart
+                className="active:scale-95 duration-300 text-3xl"
+                onClick={() => setIsLiked(!isLiked)}
+              />
+            )}
+
             {isFavorite ? (
               <FaBookmark
                 className="active:scale-95 duration-300"

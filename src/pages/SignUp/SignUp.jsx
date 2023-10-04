@@ -18,12 +18,11 @@ const SignUp = () => {
     const password = e.target.password.value;
 
     const user = await createUser(email, password);
-    console.log(user.uid);
   };
 
   const navigate = useNavigate();
   return (
-    <Container>
+    <Container auth>
       <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">
         <div className="bg-gray-200 p-4  flex flex-col gap-4 rounded-xl   w-[70%] sm:w-[50%] md:w-[40%] lg:w-[26%]">
           <p className="text-center text-3xl font-[900]">Sign Up</p>

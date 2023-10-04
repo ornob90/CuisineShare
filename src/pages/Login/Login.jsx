@@ -9,6 +9,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { user, signInMethod } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -17,11 +18,13 @@ const Login = () => {
     const password = e.target.password.value;
 
     const user = await signInMethod(email, password);
+
+    await signInMethod(email, password);
+    navigate("/");
   };
 
-  const navigate = useNavigate();
   return (
-    <Container top={false}>
+    <Container auth>
       <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">
         {/* <img
           src="https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80"

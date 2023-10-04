@@ -10,9 +10,11 @@ import auth from "../FireStore/firestore.config";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const createUser = async (email, password) => {
     try {
+      setLoading(true);
       const result = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -28,7 +30,6 @@ const AuthProvider = ({ children }) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
 
-      console.log(result.user);
       setUser(result.user);
     } catch (error) {
       console.error(error);
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
 
   onAuthStateChanged(auth, (curUser) => {
     setUser(curUser);
+    setLoading(false);
   });
 
   const authInfo = { user, createUser, signInMethod, signOutMethod };

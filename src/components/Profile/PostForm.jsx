@@ -3,11 +3,12 @@ import React, { useRef, useState } from "react";
 import Button from "../Shared/Button";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
+import useAuth from "../../hooks/useAuth";
 
 const PostForm = ({ handleModal }) => {
   const categoryRef = useRef();
   const [selectedCategory, setSelectedCategory] = useState("");
-
+  const { user } = useAuth();
   const postDbRef = collection(db, "posts");
 
   const category = [
@@ -95,6 +96,7 @@ const PostForm = ({ handleModal }) => {
       steps,
       ingredients,
       cookingTime,
+      userEmail: user.email,
       category: selectedCategory.value,
       isFavorite: false,
       isLiked: false,

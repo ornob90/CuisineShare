@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
+import { v4 } from "uuid";
 
 const SignUp = () => {
   const { createUser, googleSignInMethod, updateUser } = useAuth();
@@ -15,8 +16,11 @@ const SignUp = () => {
   const userDbRef = collection(db, "users");
 
   const handleAddUserData = async (name, email) => {
+    const userId = `${name}+${v4()}`;
+    updateUserId(userId);
     try {
       await addDoc(userDbRef, {
+        userId,
         userName: name,
         email: email,
         imagePath: "",

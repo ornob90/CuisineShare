@@ -13,6 +13,7 @@ import auth, { googleProvider } from "../FireStore/firestore.config";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }) => {
       });
       setUser(result.user);
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
@@ -82,8 +84,10 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+
     loading,
     updateUser,
+
     createUser,
     signInMethod,
     googleSignInMethod,

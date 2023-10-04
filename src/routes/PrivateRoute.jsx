@@ -9,7 +9,6 @@ const PrivateRoute = ({ children }) => {
   if (loading) {
     return <Loading />;
   } else if (user) {
-    console.log(user);
     return children;
   } else {
     return <Navigate to="/login"></Navigate>;

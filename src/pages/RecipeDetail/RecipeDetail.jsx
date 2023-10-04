@@ -1,9 +1,37 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Container from "../../components/Shared/Container";
 import { Rating } from "@mui/material";
 import Button from "../../components/Shared/Button";
+import Review from "../../components/Review";
+import useAuth from "../../hooks/useAuth";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../FireStore/firestore.config";
 
 const RecipeDetail = () => {
+  const [commentInput, setCommentInput] = useState("");
+  const { user } = useAuth();
+  const commentRef = useRef();
+
+  const reviewDbRef = collection(db, "reviews");
+
+  const handleReview = async () => {
+    try {
+      const comment = commentRef.current.value;
+      const userEmail = user.email;
+      const postId = "2osjkdfaosdhfasdf";
+
+      setCommentInput("");
+
+      await addDoc(reviewDbRef, {
+        comment,
+        userEmail,
+        postId,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <div className="w-[90%] mx-auto">
@@ -40,27 +68,24 @@ const RecipeDetail = () => {
         </div>
         <div className="mt-10 z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
           <input
+            ref={commentRef}
             className="w-full py-3 pl-5 border rounded-l-lg focus:outline-none text-md"
             type="text"
             placeholder="Comment"
+            value={commentInput}
+            onChange={(e) => setCommentInput(e.target.value)}
           />
-          <Button classes="bg-black py-3 px-8 text-sm rounded-r-lg text-white ">
+          <Button
+            type="button"
+            onClick={handleReview}
+            classes="bg-black py-3 px-8 text-sm rounded-r-lg text-white "
+          >
             Comment
           </Button>
         </div>
         <div className="mt-20 space-y-10">
           {[1, 2, 3, 4, 5].map((e) => (
-            <div key={e}>
-              <div className="flex items-center gap-4">
-                <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
-                <p>Ornob</p>
-              </div>
-              <p className="text-sm md:text-base w-full lg:w-[60%] mt-5">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt
-                mollitia, amet rerum natus reiciendis suscipit officiis ea unde
-                neque ipsum!
-              </p>
-            </div>
+            <Review key={e} />
           ))}
         </div>
       </div>

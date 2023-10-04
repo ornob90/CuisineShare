@@ -54,9 +54,9 @@ const ProfileHeader = () => {
         } `}
       >
         <div
-          className={`w-[80%] lg:w-[50%]  bg-gray-200 ${
+          className={`w-[80%] lg:w-[50%] bg-gray-200 ${
             modal ? "scale-1" : "scale-0"
-          } duration-[.4s] flex justify-center items-center py-10 rounded-2xl`}
+          } duration-[.4s] flex justify-center items-center px-4 py-10 rounded-2xl`}
         >
           <PostForm handleModal={handleModal} />
         </div>

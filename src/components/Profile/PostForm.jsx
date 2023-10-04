@@ -104,7 +104,7 @@ const PostForm = ({ handleModal }) => {
   };
 
   return (
-    <div className="min-h-[300px] w-[80%]] h-[70%]">
+    <div className="min-h-[300px] w-[80%]] h-[70%] font-sans">
       <form
         className="grid grid-cols-1 lg:grid-cols-2 gap-4 "
         onSubmit={handlePostData}
@@ -156,6 +156,13 @@ const PostForm = ({ handleModal }) => {
           }}
           renderInput={(params) => <TextField {...params} label="Category" />}
         />
+        <div className="col-span-2 flex flex-col gap-2">
+          <label class="file:label text-sm font-sans">Upload your Image</label>
+          <input
+            type="file"
+            className="col-span-2 file:font-sans file:text-sm file:font-medium w-full max-w-xs text-sm font-sans"
+          />
+        </div>
         <div className="flex items-center  lg:justify-end lg:col-span-2 col-span-2 gap-4">
           <Button
             onClick={handleModal}

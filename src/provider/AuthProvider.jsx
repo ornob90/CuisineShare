@@ -8,10 +8,15 @@ import {
   signOut,
 } from "firebase/auth";
 import auth, { googleProvider } from "../FireStore/firestore.config";
+import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const updateUser = (newUser) => {
+    setUser(newUser);
+  };
 
   const createUser = async (email, password) => {
     setLoading(true);
@@ -39,13 +44,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const googleSignInMethod = async () => {
-    setLoading(true);
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      setUser(result.user);
-    } catch (error) {
-      console.error(error);
-    }
+    return signInWithPopup(auth, googleProvider);
   };
 
   const signOutMethod = async () => {
@@ -70,6 +69,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     loading,
+    updateUser,
     createUser,
     signInMethod,
     googleSignInMethod,

@@ -7,7 +7,7 @@ import { db } from "../../FireStore/firestore.config";
 const PostForm = ({ handleModal }) => {
   const categoryRef = useRef();
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [favorite, setFavorite] = useState(false);
+
   const postDbRef = collection(db, "posts");
 
   const category = [
@@ -96,7 +96,8 @@ const PostForm = ({ handleModal }) => {
       ingredients,
       cookingTime,
       category: selectedCategory.value,
-      favorite,
+      isFavorite: false,
+      isLiked: false,
     });
   };
 

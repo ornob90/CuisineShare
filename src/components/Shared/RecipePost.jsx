@@ -1,11 +1,13 @@
 import { Rating } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const RecipePost = () => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -23,7 +25,17 @@ const RecipePost = () => {
           <h1 className="mb-2 text-3xl font-bold">Burger</h1>
           <div className="flex gap-4 text-2xl">
             <AiOutlineHeart className="text-3xl" />
-            <FaRegBookmark />
+            {isFavorite ? (
+              <FaBookmark
+                className="active:scale-95 duration-300"
+                onClick={() => setIsFavorite(!isFavorite)}
+              />
+            ) : (
+              <FaRegBookmark
+                className="active:scale-95 duration-300"
+                onClick={() => setIsFavorite(!isFavorite)}
+              />
+            )}
           </div>
         </div>
         <Rating className="pt-4 z-[-1]" name="read-only" value={3.5} readOnly />

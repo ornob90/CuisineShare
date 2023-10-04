@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "../../components/Shared/Container";
 import RecipeCard from "../../components/Shared/RecipeCard";
+import PrivateRoute from "../../routes/PrivateRoute";
 
 const Favorites = () => {
   const sweets = [
@@ -24,18 +25,20 @@ const Favorites = () => {
     },
   ];
   return (
-    <Container>
-      <div className="w-[90%] mx-auto">
-        <h1 className="text-3xl font-bold mt-28 mb-2">Favorites</h1>
-        <hr className="border border-black" />
+    <PrivateRoute>
+      <Container>
+        <div className="w-[90%] mx-auto">
+          <h1 className="text-3xl font-bold mt-28 mb-2">Favorites</h1>
+          <hr className="border border-black" />
 
-        <div className="my-10  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sweets.map(({ id, image, title }) => (
-            <RecipeCard key={id} image={image} title={title} />
-          ))}
+          <div className="my-10  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {sweets.map(({ id, image, title }) => (
+              <RecipeCard key={id} image={image} title={title} />
+            ))}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </PrivateRoute>
   );
 };
 

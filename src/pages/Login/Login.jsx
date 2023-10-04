@@ -5,11 +5,23 @@ import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { user, signInMethod } = useAuth();
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const user = await signInMethod(email, password);
+  };
+
   const navigate = useNavigate();
   return (
-    <Container>
+    <Container top={false}>
       <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">
         {/* <img
           src="https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80"
@@ -19,22 +31,26 @@ const Login = () => {
         bg-gray-200 p-4 absolute flex flex-col gap-4 rounded-xl top-[20%]  left-[20%] lg:left-[40%] w-[60%] sm:w-[50%] md:w-[40%] lg:w-[26%]*/}
         <div className="bg-gray-200 p-4  flex flex-col gap-4 rounded-xl   w-[70%] sm:w-[50%] md:w-[40%] lg:w-[26%]">
           <p className="text-center text-3xl font-[900]">Login</p>
-          <input
-            className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
-            type="text"
-            placeholder="Enter Email"
-          />
-          <input
-            className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
-            type="text"
-            placeholder="Enter Password"
-          />
-          <p className="w-max text-[12px] border border-b-gray-400 active:scale-95 duration-300 cursor-pointer">
-            Forget Password
-          </p>
-          <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base">
-            Sign In
-          </Button>
+          <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
+            <input
+              className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
+              type="email"
+              placeholder="Enter Email"
+              name="email"
+            />
+            <input
+              className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+            />
+            <p className="w-max text-[12px] border border-b-gray-400 active:scale-95 duration-300 cursor-pointer">
+              Forget Password
+            </p>
+            <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base">
+              Sign In
+            </Button>
+          </form>
           <div className="flex justify-left gap-2 items-center text-[12px] ">
             <p>New Here?</p>
             <Link

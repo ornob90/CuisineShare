@@ -96,33 +96,17 @@ const Login = () => {
             <p className="text-[8px] md:text-sm">Login With</p>
             <hr className="border border-gray-400 w-[35%]" />
           </div>
-          {/* <div className="flex flex-wrap justify-end  mx-auto items-center">
-            <div className="w-[33%] flex justify-center items-center">
-              <img
-                src="https://o.remove.bg/downloads/30ff15fc-1b5b-40e3-92bf-4fa5bc87d93b/image-removebg-preview.png"
-                alt=""
-                className="w-[30%]"
-              />
-            </div>
-            <div className="w-[33%] flex justify-center items-center">
-              <img
-                src="https://o.remove.bg/downloads/2e63b664-0ad7-446b-b6c5-3fd155669003/imgbin-google-logo-business-google-gvCpbbZMHDpKcnh1Lkig8TYbK-removebg-preview.png"
-                alt=""
-                className="w-[70%]"
-              />
-            </div>
-            <div className="w-[33%] flex justify-center items-center">
-              <img
-                src="https://o.remove.bg/downloads/2ec0fd1d-e61b-4b43-8f01-c4404998117c/-51614117232aso9q2exl5-removebg-preview.png"
-                alt=""
-                className="w-[45%]"
-              />
-            </div>
-          </div> */}
-          <div className="flex justify-evenly items-center  text-3xl">
+
+          {/* <div className="flex justify-evenly items-center  text-3xl">
             <BsFacebook className=" cursor-pointer text-blue-600 " />
             <FcGoogle className=" cursor-pointer " />
             <AiFillTwitterCircle className="text-blue-600 text-4xl cursor-pointer " />
+          </div> */}
+          <div className="flex items-center bg-blue-600 text-white rounded-lg justify-center  cursor-pointer active:scale-95 duration-[.35s]">
+            <div className="h-full py-1 px-2 rounded-l-lg flex justify-center items-center gap-4">
+              <FcGoogle className=" cursor-pointer text-3xl" />
+              <p className="font-sans font-semibold">Sign In With Google</p>
+            </div>
           </div>
         </div>
       </div>

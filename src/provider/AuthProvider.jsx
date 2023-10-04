@@ -4,9 +4,10 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import auth from "../FireStore/firestore.config";
+import auth, { googleProvider } from "../FireStore/firestore.config";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,6 +38,16 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const googleSignInMethod = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser(result.user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const signOutMethod = async () => {
     setLoading(true);
     try {
@@ -56,7 +67,14 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const authInfo = { user, loading, createUser, signInMethod, signOutMethod };
+  const authInfo = {
+    user,
+    loading,
+    createUser,
+    signInMethod,
+    googleSignInMethod,
+    signOutMethod,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

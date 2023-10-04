@@ -10,7 +10,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
 
 const SignUp = () => {
-  const { createUser, googleSignInMethod } = useAuth();
+  const { createUser, googleSignInMethod, updateUser } = useAuth();
   const navigate = useNavigate();
   const userDbRef = collection(db, "users");
 
@@ -45,11 +45,12 @@ const SignUp = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignUp = async () => {
     try {
       const result = await googleSignInMethod();
       updateUser(result.user);
       navigate("/");
+      await handleAddUserData(result.user.displayName, result.user.email);
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +104,7 @@ const SignUp = () => {
           </div>
 
           <div
-            onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignUp}
             className="flex items-center bg-blue-600 text-white rounded-lg justify-center  cursor-pointer active:scale-95 duration-[.35s]"
           >
             <div className="h-full py-1 px-2 rounded-l-lg flex justify-center items-center gap-4">

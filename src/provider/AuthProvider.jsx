@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import {
   createUserWithEmailAndPassword,
@@ -13,8 +13,8 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const createUser = async (email, password) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const result = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInMethod = async (email, password) => {
+    setLoading(true);
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
 
@@ -37,6 +38,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signOutMethod = async () => {
+    setLoading(true);
     try {
       await signOut(auth);
       setUser(null);
@@ -45,12 +47,16 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  onAuthStateChanged(auth, (curUser) => {
-    setUser(curUser);
-    setLoading(false);
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (curUser) => {
+      setUser(curUser);
+      setLoading(false);
+    });
 
-  const authInfo = { user, createUser, signInMethod, signOutMethod };
+    return () => unsubscribe();
+  }, []);
+
+  const authInfo = { user, loading, createUser, signInMethod, signOutMethod };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

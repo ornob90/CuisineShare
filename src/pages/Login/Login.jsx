@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "../../components/Shared/Container";
 import Button from "../../components/Shared/Button";
 import { BsFacebook } from "react-icons/bs";
@@ -8,19 +8,38 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const [errorMsg, setErrorMsg] = useState("");
   const { user, signInMethod } = useAuth();
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+      const email = e.target.email.value;
+      const password = e.target.password.value;
 
-    const user = await signInMethod(email, password);
+      await signInMethod(email, password);
 
-    await signInMethod(email, password);
-    navigate("/");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDemo = async (e) => {
+    try {
+      e.preventDefault();
+
+      const email = "oornob49@gmail.com";
+      const password = "12345678";
+
+      await signInMethod(email, password);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -36,12 +55,14 @@ const Login = () => {
           <p className="text-center text-3xl font-[900]">Login</p>
           <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
             <input
+              required
               className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
               type="email"
               placeholder="Enter Email"
               name="email"
             />
             <input
+              required
               className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
               type="password"
               placeholder="Enter Password"
@@ -52,6 +73,13 @@ const Login = () => {
             </p>
             <Button classes="bg-black text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base">
               Sign In
+            </Button>
+            <Button
+              onClick={handleDemo}
+              type="button"
+              classes="bg-gray-600 text-white py-2 shadow-sm rounded-lg active:scale-95 duration-300 font-bold text-sm md:text-base"
+            >
+              Demo
             </Button>
           </form>
           <div className="flex justify-left gap-2 items-center text-[12px] ">

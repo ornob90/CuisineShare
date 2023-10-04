@@ -28,18 +28,21 @@ const SignUp = () => {
           <p className="text-center text-3xl font-[900]">Sign Up</p>
           <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
             <input
+              required
               className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
               type="text"
               placeholder="User Name"
               name="name"
             />
             <input
+              required
               className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
               type="email"
               placeholder="Email"
               name="email"
             />
             <input
+              required
               className=" pl-5 py-3 rounded-lg text-[10px] md:text-sm focus:outline-none"
               type="password"
               placeholder="Password"

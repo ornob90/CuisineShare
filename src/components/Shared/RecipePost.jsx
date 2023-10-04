@@ -3,8 +3,11 @@ import React from "react";
 import Button from "./Button";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const RecipePost = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
       <div className="w-full md:w-auto">
@@ -23,7 +26,7 @@ const RecipePost = () => {
             <FaRegBookmark />
           </div>
         </div>
-        <Rating className="pt-4 -z-1" name="read-only" value={3.5} readOnly />
+        <Rating className="pt-4 z-[-1]" name="read-only" value={3.5} readOnly />
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio,
           dolor. Pariatur tempora magnam saepe minus dolorum, culpa nesciunt
@@ -38,7 +41,10 @@ const RecipePost = () => {
           <div className="badge badge-outline">Italian</div>
         </div>
         <div>
-          <Button classes="bg-black text-white px-4 py-2 rounded-lg">
+          <Button
+            onClick={() => navigate("/details")}
+            classes="bg-black text-white px-4 py-2 rounded-lg"
+          >
             View Details
           </Button>
         </div>

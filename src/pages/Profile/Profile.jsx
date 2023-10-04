@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <Container>
       <ProfileHeader />
-      <div className="w-[80%] mx-auto">
+      <div className="w-[80%] mx-auto min-h-screen">
         <Outlet />
       </div>
     </Container>

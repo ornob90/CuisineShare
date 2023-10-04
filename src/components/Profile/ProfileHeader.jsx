@@ -51,7 +51,7 @@ const ProfileHeader = () => {
       <div
         className={`absolute top-0 left-0 flex items-center justify-center w-[95vw] min-h-screen mt-28 lg:-mt-10 lg:h-[80vh] bg-transparent   ${
           modal ? "scale-1" : "scale-0"
-        }`}
+        } `}
       >
         <div
           className={`w-[80%] lg:w-[50%]  bg-gray-200 ${

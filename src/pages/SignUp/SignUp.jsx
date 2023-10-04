@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
-  const { createUser } = useAuth();
+  const { createUser, googleSignInMethod } = useAuth();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -18,6 +18,16 @@ const SignUp = () => {
     const password = e.target.password.value;
 
     const user = await createUser(email, password);
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await googleSignInMethod();
+      updateUser(result.user);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const navigate = useNavigate();
@@ -68,10 +78,14 @@ const SignUp = () => {
             <hr className="border border-gray-400 w-[30%]" />
           </div>
 
-          <div className="flex justify-evenly items-center  text-3xl">
-            <BsFacebook className=" cursor-pointer text-blue-600 " />
-            <FcGoogle className=" cursor-pointer " />
-            <AiFillTwitterCircle className="text-blue-600 text-4xl cursor-pointer " />
+          <div
+            onClick={handleGoogleSignIn}
+            className="flex items-center bg-blue-600 text-white rounded-lg justify-center  cursor-pointer active:scale-95 duration-[.35s]"
+          >
+            <div className="h-full py-1 px-2 rounded-l-lg flex justify-center items-center gap-4">
+              <FcGoogle className=" cursor-pointer text-3xl" />
+              <p className="font-sans font-semibold">Sign Up With Google</p>
+            </div>
           </div>
         </div>
       </div>

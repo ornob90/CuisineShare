@@ -6,18 +6,43 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../FireStore/firestore.config";
 
 const SignUp = () => {
   const { createUser, googleSignInMethod } = useAuth();
+  const navigate = useNavigate();
+  const userDbRef = collection(db, "users");
+
+  const handleAddUserData = async (name, email) => {
+    try {
+      await addDoc(userDbRef, {
+        userName: name,
+        email: email,
+        imagePath: "",
+        bio: "",
+        address: "",
+        phone: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSignUp = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+      const name = e.target.name.value;
+      const email = e.target.email.value;
+      const password = e.target.password.value;
 
-    const user = await createUser(email, password);
+      navigate("/");
+      await createUser(name, email, password);
+      await handleAddUserData(name, email);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleGoogleSignIn = async () => {
@@ -30,7 +55,6 @@ const SignUp = () => {
     }
   };
 
-  const navigate = useNavigate();
   return (
     <Container auth>
       <div className="bg-login relative min-w-screen h-screen min-h-[200px] flex justify-center items-center">

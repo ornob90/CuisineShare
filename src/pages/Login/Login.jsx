@@ -114,7 +114,7 @@ const Login = () => {
           </div> */}
           <div
             onClick={handleGoogleSignIn}
-            className="flex items-center bg-blue-600 text-white rounded-lg justify-center  cursor-pointer active:scale-95 duration-[.35s]"
+            className="flex items-center bg-blue-600 text-white rounded-lg justify-center text-sm md:text-base cursor-pointer active:scale-95 duration-[.35s]"
           >
             <div className="h-full py-1 px-2 rounded-l-lg flex justify-center items-center gap-4">
               <FcGoogle className=" cursor-pointer text-3xl" />

@@ -3,22 +3,28 @@ import AuthContext from "../context/AuthContext";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import auth, { googleProvider } from "../FireStore/firestore.config";
-import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const updateUser = (newUser) => {
-    setUser(newUser);
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (curUser) => {
+      setUser(curUser);
+      setLoading(false);
+    });
 
-  const createUser = async (email, password) => {
+    return () => unsubscribe();
+  }, []);
+
+  const createUser = async (name, email, password) => {
     setLoading(true);
     try {
       const result = await createUserWithEmailAndPassword(
@@ -26,10 +32,18 @@ const AuthProvider = ({ children }) => {
         email,
         password
       );
-      return result.user;
+
+      await updateProfile(result.user, {
+        displayName: name,
+      });
+      setUser(result.user);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const updateUser = (newUser) => {
+    setUser(newUser);
   };
 
   const signInMethod = async (email, password) => {
@@ -39,6 +53,7 @@ const AuthProvider = ({ children }) => {
 
       setUser(result.user);
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
@@ -57,14 +72,13 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (curUser) => {
-      setUser(curUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const passResetMethod = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const authInfo = {
     user,
@@ -74,6 +88,7 @@ const AuthProvider = ({ children }) => {
     signInMethod,
     googleSignInMethod,
     signOutMethod,
+    passResetMethod,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

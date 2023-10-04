@@ -10,6 +10,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import Profile from "../pages/Profile/Profile";
 import ProfileAbout from "../components/Profile/ProfileAbout";
 import ProfileRecipes from "../components/Profile/ProfileRecipes";
+import PostForm from "../components/Profile/PostForm";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/form",
+        element: <PostForm />,
       },
     ],
   },

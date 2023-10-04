@@ -66,24 +66,24 @@ const PostForm = ({ handleModal }) => {
   ];
 
   return (
-    <div className="">
-      <form className="grid grid-cols-2 gap-4">
+    <div className="w-[80%]">
+      <form className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <TextField
-          className="col-span-1 "
+          className="lg:col-span-1 col-span-2 "
           id="outlined-basic"
           label="Title"
           variant="outlined"
         />
         <textarea
-          className="col-span-2 border border-gray-300 focus:outline-none textarea textarea-ghost"
+          className="focus:bg-gray-200 lg:col-span-2 col-span-2 border border-gray-300 focus:outline-none textarea textarea-ghost"
           placeholder="Description"
         ></textarea>
         <textarea
-          className="col-span-2 border border-gray-300 focus:outline-none textarea textarea-ghost"
+          className="focus:bg-gray-200 lg:col-span-2 col-span-2 border border-gray-300 focus:outline-none textarea textarea-ghost"
           placeholder="Steps"
         ></textarea>
         <TextField
-          className="col-span-1"
+          className="lg:col-span-1 col-span-2"
           id="outlined-basic"
           label="Cooking Time"
           variant="outlined"
@@ -96,7 +96,7 @@ const PostForm = ({ handleModal }) => {
           options={category}
           renderInput={(params) => <TextField {...params} label="Category" />}
         />
-        <div className="flex items-center justify-end col-span-2 gap-4">
+        <div className="flex items-center  lg:justify-end lg:col-span-2 col-span-2 gap-4">
           <Button
             onClick={handleModal}
             type="button"

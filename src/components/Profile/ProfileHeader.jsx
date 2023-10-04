@@ -49,12 +49,12 @@ const ProfileHeader = () => {
         </div>
       </div>
       <div
-        className={`absolute top-0 left-0 flex items-center justify-center w-screen h-[80vh] bg-transparent border border-black ${
+        className={`absolute top-0 left-0 flex items-center justify-center w-[95vw] min-h-screen mt-28 lg:-mt-10 lg:h-[80vh] bg-transparent   ${
           modal ? "scale-1" : "scale-0"
         }`}
       >
         <div
-          className={` w-[50%]  bg-white ${
+          className={`w-[80%] lg:w-[50%]  bg-gray-200 ${
             modal ? "scale-1" : "scale-0"
           } duration-[.4s] flex justify-center items-center py-10 rounded-2xl`}
         >

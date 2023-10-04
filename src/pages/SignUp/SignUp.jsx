@@ -37,8 +37,8 @@ const SignUp = () => {
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-      navigate("/");
       await createUser(name, email, password);
+      navigate("/");
       await handleAddUserData(name, email);
     } catch (error) {
       console.error(error);

@@ -41,8 +41,8 @@ const Login = () => {
     try {
       e.preventDefault();
 
-      const email = "oornob49@gmail.com";
-      const password = "12345678";
+      const email = "demo@gmail.com";
+      const password = "demo123";
 
       await signInMethod(email, password);
 

@@ -6,6 +6,21 @@ import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const RecipePost = ({ post }) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   const navigate = useNavigate();
   const {
     title,
@@ -17,10 +32,27 @@ const RecipePost = ({ post }) => {
     id,
     img,
     cookingTime,
-  } = post;
+    createdAt,
+  } = post || {};
 
   const [favorite, setFavorite] = useState(isLiked);
   const [liked, setLiked] = useState(isFavorite);
+
+  const getDate = (seconds, nanoseconds) => {
+    const milliseconds = seconds * 1000 + nanoseconds / 1000000;
+
+    const date = new Date(milliseconds);
+
+    const formattedDate = `${date.getDate()} ${
+      months[date.getMonth()]
+    } ${date.getFullYear()} | ${date.getHours() % 12} ${
+      date.getHours() >= 12 ? "PM" : "AM"
+    }`;
+
+    return formattedDate;
+  };
+
+  const createdTime = getDate(createdAt.seconds, createdAt.nanoseconds);
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -65,6 +97,9 @@ const RecipePost = ({ post }) => {
         <p>{description}</p>
         <p>
           <span className="font-bold">Cooking Time: </span> {cookingTime}
+        </p>
+        <p className="font-sans">
+          <span className="font-bold">Created At: </span> {createdTime}
         </p>
 
         <div className="badge badge-outline">{category}</div>

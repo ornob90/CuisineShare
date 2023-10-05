@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../Shared/Button";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, storage } from "../../FireStore/firestore.config";
 import useAuth from "../../hooks/useAuth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -120,6 +120,7 @@ const PostForm = ({ handleModal }) => {
       img: imgUrl,
       isFavorite: false,
       isLiked: false,
+      createdAt: serverTimestamp(),
     });
   };
 
@@ -180,6 +181,7 @@ const PostForm = ({ handleModal }) => {
           onChange={(event, category) => {
             setSelectedCategory(category);
           }}
+          isOptionEqualToValue={(option, value) => option.value === value.value}
           renderInput={(params) => <TextField {...params} label="Category" />}
         />
         <div className="col-span-2 flex flex-col gap-2">

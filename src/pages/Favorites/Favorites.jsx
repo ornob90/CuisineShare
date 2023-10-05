@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/Shared/Container";
 import RecipeCard from "../../components/Shared/RecipeCard";
 import PrivateRoute from "../../routes/PrivateRoute";
+import useDb from "../../hooks/useDb";
+import useAuth from "../../hooks/useAuth";
 
 const Favorites = () => {
   const sweets = [
@@ -24,6 +26,21 @@ const Favorites = () => {
       title: "Berry Madness Biscuits",
     },
   ];
+  const { posts } = useDb();
+  const { user } = useAuth();
+
+  const [favoritePosts, setFavoritePosts] = useState([]);
+
+  useEffect(() => {
+    setFavoritePosts(
+      Object.keys(posts).filter((postId) => {
+        return (
+          posts[postId].userEmail === user.email && posts[postId].isFavorite
+        );
+      })
+    );
+  }, [posts]);
+
   return (
     <PrivateRoute>
       <Container>
@@ -32,8 +49,11 @@ const Favorites = () => {
           <hr className="border border-black" />
 
           <div className="my-10  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sweets.map(({ id, image, title }) => (
+            {/* {sweets.map(({ id, image, title }) => (
               <RecipeCard key={id} image={image} title={title} />
+            ))} */}
+            {favoritePosts.map((postId) => (
+              <RecipeCard key={postId} posts={posts[postId]} />
             ))}
           </div>
         </div>

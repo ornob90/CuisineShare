@@ -63,7 +63,7 @@ const RecipePost = ({ post }) => {
         <img
           src={img}
           alt={title}
-          className="object-cover w-full h-full rounded-lg"
+          className="object-cover w-full h-[400px] rounded-lg"
         />
       </div>
 

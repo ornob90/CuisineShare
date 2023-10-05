@@ -13,7 +13,7 @@ import auth, { googleProvider } from "../FireStore/firestore.config";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
       setUser(result.user);
     } catch (error) {
       setLoading(false);
+      setErr(error.message);
       console.error(error);
     }
   };
@@ -56,6 +57,7 @@ const AuthProvider = ({ children }) => {
       setUser(result.user);
     } catch (error) {
       setLoading(false);
+      setErr(error.message);
       console.error(error);
     }
   };
@@ -70,6 +72,8 @@ const AuthProvider = ({ children }) => {
       await signOut(auth);
       setUser(null);
     } catch (error) {
+      setErr(error.message);
+
       console.error(error);
     }
   };
@@ -78,16 +82,17 @@ const AuthProvider = ({ children }) => {
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
+      setErr(error.message);
+
       console.error(error);
     }
   };
 
   const authInfo = {
     user,
-
     loading,
+    err,
     updateUser,
-
     createUser,
     signInMethod,
     googleSignInMethod,

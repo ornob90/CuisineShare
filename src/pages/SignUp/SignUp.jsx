@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../../components/Shared/Container";
 import Button from "../../components/Shared/Button";
 import { BsFacebook } from "react-icons/bs";
@@ -9,15 +9,27 @@ import useAuth from "../../hooks/useAuth";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
 import { v4 } from "uuid";
+import useDb from "../../hooks/useDb";
 
 const SignUp = () => {
-  const { createUser, googleSignInMethod, updateUser } = useAuth();
+  const { createUser, googleSignInMethod, updateUser, err } = useAuth();
+  const { users } = useDb();
+  const [errorMsg, setErrorMsg] = useState(err);
   const navigate = useNavigate();
   const userDbRef = collection(db, "users");
 
+  useEffect(() => {
+    if (errorMsg) navigate("/signup");
+  }, [errorMsg]);
+
+  const handleErr = (error) => {
+    setErrorMsg(error);
+    navigate("/signup");
+  };
+
   const handleAddUserData = async (name, email) => {
     const userId = `${name}+${v4()}`;
-    updateUserId(userId);
+
     try {
       await addDoc(userDbRef, {
         userId,
@@ -29,6 +41,7 @@ const SignUp = () => {
         phone: "",
       });
     } catch (error) {
+      handleErr(error.message);
       console.error(error);
     }
   };
@@ -41,10 +54,21 @@ const SignUp = () => {
       const email = e.target.email.value;
       const password = e.target.password.value;
 
+      const emailExist = Object.values(users).some(
+        (user) => user.email === email
+      );
+
+      if (emailExist) {
+        setErrorMsg("Email Already Exist");
+        navigate("/signup");
+        return;
+      }
+
       await createUser(name, email, password);
       navigate("/");
       await handleAddUserData(name, email);
     } catch (error) {
+      handleErr(error.message);
       console.error(error);
     }
   };
@@ -56,6 +80,7 @@ const SignUp = () => {
       navigate("/");
       await handleAddUserData(result.user.displayName, result.user.email);
     } catch (error) {
+      handleErr(error.message);
       console.error(error);
     }
   };
@@ -92,6 +117,7 @@ const SignUp = () => {
               Sign Up
             </Button>
           </form>
+          <p className="text-red-600 text-sm">{errorMsg}</p>
           <div className="flex justify-left gap-2 items-center text-[12px] ">
             <p>Already have an account?</p>
             <Link

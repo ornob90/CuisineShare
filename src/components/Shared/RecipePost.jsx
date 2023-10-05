@@ -4,6 +4,8 @@ import Button from "./Button";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { db } from "../../FireStore/firestore.config";
+import { doc, updateDoc } from "firebase/firestore";
 
 const RecipePost = ({ post }) => {
   const months = [
@@ -52,6 +54,28 @@ const RecipePost = ({ post }) => {
     return formattedDate;
   };
 
+  const updateLike = async (newLike) => {
+    const postDoc = doc(db, "posts", id);
+    const newFields = { isLiked: newLike };
+    await updateDoc(postDoc, newFields);
+  };
+
+  const updateFavorite = async (newFav) => {
+    const postDoc = doc(db, "posts", id);
+    const newFields = { isFavorite: newFav };
+    await updateDoc(postDoc, newFields);
+  };
+
+  const handleLike = async () => {
+    await updateLike(!liked);
+    setLiked(!liked);
+  };
+
+  const handleFavorite = async () => {
+    await updateFavorite(!favorite);
+    setFavorite(!favorite);
+  };
+
   let createdTime = " ";
   if (createdAt) {
     createdTime = getDate(createdAt?.seconds, createdAt?.nanoseconds);
@@ -74,24 +98,24 @@ const RecipePost = ({ post }) => {
             {liked ? (
               <AiTwotoneHeart
                 className="active:scale-95 duration-300 text-3xl text-yellow-400"
-                onClick={() => setLiked(!liked)}
+                onClick={handleLike}
               />
             ) : (
               <AiOutlineHeart
                 className="active:scale-95 duration-300 text-3xl"
-                onClick={() => setLiked(!liked)}
+                onClick={handleLike}
               />
             )}
 
             {favorite ? (
               <FaBookmark
                 className="active:scale-95 duration-300"
-                onClick={() => setFavorite(!favorite)}
+                onClick={handleFavorite}
               />
             ) : (
               <FaRegBookmark
                 className="active:scale-95 duration-300"
-                onClick={() => setFavorite(!favorite)}
+                onClick={handleFavorite}
               />
             )}
           </div>

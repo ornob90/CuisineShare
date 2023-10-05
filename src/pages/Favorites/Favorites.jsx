@@ -32,12 +32,20 @@ const Favorites = () => {
   const [favoritePosts, setFavoritePosts] = useState([]);
 
   useEffect(() => {
-    setFavoritePosts(
-      Object.keys(posts).filter((postId) => {
-        return (
-          posts[postId].userEmail === user.email && posts[postId].isFavorite
-        );
-      })
+    // setFavoritePosts(
+    //   Object.keys(posts).filter((postId) => {
+    //     return (
+    //       posts[postId].userEmail === user.email && posts[postId].isFavorite
+    //     );
+    //   })
+    // );
+    Object.keys(posts).forEach((postId, idx) =>
+      console.log(
+        posts[postId].isFavorite,
+        posts[postId].userEmail,
+        user.email,
+        idx
+      )
     );
   }, [posts]);
 

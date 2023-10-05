@@ -5,7 +5,8 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../FireStore/firestore.config";
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, doc, updateDoc } from "firebase/firestore";
+import useDb from "../../hooks/useDb";
 
 const RecipePost = ({ post }) => {
   const months = [
@@ -35,10 +36,15 @@ const RecipePost = ({ post }) => {
     img,
     cookingTime,
     createdAt,
+    userEmail,
   } = post || {};
 
   const [favorite, setFavorite] = useState(isLiked);
   const [liked, setLiked] = useState(isFavorite);
+
+  // const favoriteDbRef = collection(db, "favorites");
+
+  const { posts } = useDb();
 
   const getDate = (seconds, nanoseconds) => {
     const milliseconds = seconds * 1000 + nanoseconds / 1000000;
@@ -67,14 +73,41 @@ const RecipePost = ({ post }) => {
   };
 
   const handleLike = async () => {
-    await updateLike(!liked);
-    setLiked(!liked);
+    // setLiked(!liked);
+    // await updateLike(!liked);
+
+    await updateLike(!isLiked);
   };
 
   const handleFavorite = async () => {
-    await updateFavorite(!favorite);
-    setFavorite(!favorite);
+    // setFavorite(!favorite);
+    await updateFavorite(!isFavorite);
   };
+
+  // const handleFavorite = async () => {
+  //   // await setFavorite(!favorite);
+  //   // await updateFavorite(!favorite);
+
+  //   // await updateFavorite(!isFavorite);
+  //   try {
+  //     const isExist =
+  //       favorites.length > 0 &&
+  //       favorites.filter(({ postId, postUserEmail }) => {
+  //         return postId === id && postUserEmail === userEmail;
+  //       });
+
+  //      if(isExist) {
+
+  //         const favDoc = doc(db, "favorites", )
+  //      } else {
+
+  //        await addDoc(favoriteDbRef, data);
+  //      }
+
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   let createdTime = " ";
   if (createdAt) {
@@ -95,7 +128,7 @@ const RecipePost = ({ post }) => {
         <div className="flex justify-between">
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
           <div className="flex gap-4 text-2xl">
-            {liked ? (
+            {isLiked ? (
               <AiTwotoneHeart
                 className="active:scale-95 duration-300 text-3xl text-yellow-400"
                 onClick={handleLike}
@@ -107,7 +140,7 @@ const RecipePost = ({ post }) => {
               />
             )}
 
-            {favorite ? (
+            {isFavorite ? (
               <FaBookmark
                 className="active:scale-95 duration-300"
                 onClick={handleFavorite}

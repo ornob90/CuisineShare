@@ -14,10 +14,22 @@ const RecipeFeed = () => {
   useEffect(() => {
     const toArray = Object.entries(posts);
 
-    setSortedPosts(
-      toArray.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
-    );
+    // setSortedPosts(
+    //   toArray.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+    // );
+    setSortedPosts(toArray);
+    console.log(toArray);
   }, [posts]);
+
+  useEffect(() => {
+    const toArray = Object.entries(posts);
+
+    // setSortedPosts(
+    //   toArray.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+    // );
+    setSortedPosts(toArray);
+    console.log(toArray);
+  }, []);
 
   return (
     <PrivateRoute>

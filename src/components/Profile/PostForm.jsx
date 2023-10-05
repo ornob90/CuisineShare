@@ -16,6 +16,7 @@ const PostForm = ({ handleModal }) => {
   const [imgUrl, setImgUrl] = useState(null);
   const { user } = useAuth();
   const postDbRef = collection(db, "posts");
+  const favoriteDbRef = collection(db, "favorites");
 
   const category = [
     {
@@ -87,6 +88,14 @@ const PostForm = ({ handleModal }) => {
     }
   };
 
+  const handleAddFavoriteData = async (data) => {
+    try {
+      await addDoc(favoriteDbRef, data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // const setImageUrl = async () => {
   //   if (!imgFile) return;
 
@@ -132,8 +141,8 @@ const PostForm = ({ handleModal }) => {
       userEmail: user.email,
       category: selectedCategory.value || " ",
       img: imgUrl,
-      isFavorite: false,
       isLiked: false,
+      isFavorite: false,
       createdAt: serverTimestamp(),
     });
   };

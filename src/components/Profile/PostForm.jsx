@@ -1,13 +1,17 @@
 import { Autocomplete, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../Shared/Button";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../FireStore/firestore.config";
+import { db, storage } from "../../FireStore/firestore.config";
 import useAuth from "../../hooks/useAuth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const PostForm = ({ handleModal }) => {
   const categoryRef = useRef();
+  const fileRef = useRef();
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [imgFile, setImgFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
   const { user } = useAuth();
   const postDbRef = collection(db, "posts");
 
@@ -81,6 +85,19 @@ const PostForm = ({ handleModal }) => {
     }
   };
 
+  const setImageUrl = async () => {
+    if (!imgFile) return;
+
+    const userEmail = user.email.replace(/[\W_]/g, "");
+    const imageRef = ref(storage, `posts/${userEmail}`);
+
+    const snapshot = await uploadBytes(imageRef, imgFile);
+
+    const url = await getDownloadURL(snapshot.ref);
+
+    setImgUrl(url);
+  };
+
   const handlePostData = async (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -88,7 +105,9 @@ const PostForm = ({ handleModal }) => {
     const steps = e.target.steps.value;
     const ingredients = e.target.ingredients.value;
     const cookingTime = e.target.time.value;
-    const category = categoryRef.current.value;
+    // const category = categoryRef.current.value;
+
+    await setImageUrl();
 
     await handleAddPostDataToDB({
       title,
@@ -98,10 +117,17 @@ const PostForm = ({ handleModal }) => {
       cookingTime,
       userEmail: user.email,
       category: selectedCategory.value,
+      img: imgUrl,
       isFavorite: false,
       isLiked: false,
     });
   };
+
+  useEffect(() => {
+    const setUrl = async () => await setImageUrl();
+
+    setUrl();
+  }, [imgFile]);
 
   return (
     <div className="min-h-[300px] w-[80%]] h-[70%] font-sans">
@@ -161,8 +187,11 @@ const PostForm = ({ handleModal }) => {
             Upload your Image
           </label>
           <input
+            ref={fileRef}
+            name="image"
             type="file"
             className="col-span-2 file:font-sans file:text-sm file:font-medium w-full max-w-xs text-sm font-sans"
+            onChange={(e) => setImgFile(e.target.files[0])}
           />
         </div>
         <div className="flex items-center  lg:justify-end lg:col-span-2 col-span-2 gap-4">

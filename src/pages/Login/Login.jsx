@@ -6,11 +6,36 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useDb from "../../hooks/useDb";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../FireStore/firestore.config";
 
 const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const { user, signInMethod, googleSignInMethod, updateUser } = useAuth();
+  const { users } = useDb();
   const navigate = useNavigate();
+  const userDbRef = collection(db, "users");
+
+  const handleAddUserData = async (name, email, photoUrl) => {
+    const imagePath = photoUrl || "";
+    try {
+      await addDoc(userDbRef, {
+        userName: name,
+        email: email,
+        imagePath,
+        bio: "",
+        address: "",
+        phone: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const checkDuplicateEmail = (values, email) => {
+    return Object.values(values).some((value) => value.email === email);
+  };
 
   const handleSignIn = async (e) => {
     try {
@@ -31,6 +56,20 @@ const Login = () => {
     try {
       const result = await googleSignInMethod();
       updateUser(result.user);
+      console.log(result);
+      const emailExist = checkDuplicateEmail(users, result.user.email);
+
+      if (emailExist) {
+        navigate("/");
+        return;
+      }
+
+      await handleAddUserData(
+        result.user.displayName,
+        result.user.email,
+        result.user.photoURL
+      );
+
       navigate("/");
     } catch (error) {
       console.error(error);

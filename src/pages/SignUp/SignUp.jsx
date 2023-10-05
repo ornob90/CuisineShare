@@ -27,23 +27,24 @@ const SignUp = () => {
     navigate("/signup");
   };
 
-  const handleAddUserData = async (name, email) => {
-    const userId = `${name}+${v4()}`;
-
+  const handleAddUserData = async (name, email, photoUrl) => {
+    const imagePath = photoUrl || "";
     try {
       await addDoc(userDbRef, {
-        userId,
         userName: name,
         email: email,
-        imagePath: "",
+        imagePath,
         bio: "",
         address: "",
         phone: "",
       });
     } catch (error) {
-      handleErr(error.message);
       console.error(error);
     }
+  };
+
+  const checkDuplicateEmail = (values, email) => {
+    return Object.values(values).some((value) => value.email === email);
   };
 
   const handleSignUp = async (e) => {
@@ -54,9 +55,7 @@ const SignUp = () => {
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-      const emailExist = Object.values(users).some(
-        (user) => user.email === email
-      );
+      const emailExist = checkDuplicateEmail(users, email);
 
       if (emailExist) {
         setErrorMsg("Email Already Exist");
@@ -77,8 +76,20 @@ const SignUp = () => {
     try {
       const result = await googleSignInMethod();
       updateUser(result.user);
+
+      const emailExist = checkDuplicateEmail(users, result.user.email);
+
+      if (emailExist) {
+        navigate("/");
+        return;
+      }
+
+      await handleAddUserData(
+        result.user.displayName,
+        result.user.email,
+        result.user.photoURL
+      );
       navigate("/");
-      await handleAddUserData(result.user.displayName, result.user.email);
     } catch (error) {
       handleErr(error.message);
       console.error(error);

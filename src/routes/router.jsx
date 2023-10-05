@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <Favorites />,
       },
       {
-        path: "/details",
+        path: "/details/:id",
         element: <RecipeDetail />,
       },
       {
@@ -59,10 +59,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
-      },
-      {
-        path: "/form",
-        element: <PostForm />,
       },
     ],
   },

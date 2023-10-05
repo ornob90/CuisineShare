@@ -4,8 +4,11 @@ import Button from "../../components/Shared/Button";
 import Select from "../../components/Shared/Select";
 import RecipePost from "../../components/Shared/RecipePost";
 import PrivateRoute from "../../routes/PrivateRoute";
+import useDb from "../../hooks/useDb";
 
 const RecipeFeed = () => {
+  const { posts } = useDb();
+
   return (
     <PrivateRoute>
       <Container>
@@ -41,17 +44,9 @@ const RecipeFeed = () => {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-8">
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
-          <RecipePost />
+          {Object.keys(posts).map((post) => (
+            <RecipePost key={posts[post].id} post={posts[post]} />
+          ))}
         </div>
       </Container>
     </PrivateRoute>

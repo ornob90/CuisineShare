@@ -52,7 +52,10 @@ const RecipePost = ({ post }) => {
     return formattedDate;
   };
 
-  const createdTime = getDate(createdAt.seconds, createdAt.nanoseconds);
+  let createdTime = " ";
+  if (createdAt) {
+    createdTime = getDate(createdAt?.seconds, createdAt?.nanoseconds);
+  }
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

@@ -1,11 +1,16 @@
 import React from "react";
 
-const Button = ({ children, classes, onClick, type }) => {
+const Button = ({ children, classes, onClick, type, disabled }) => {
   return (
     <button
+      disabled={disabled}
       type={type ? type : "submit"}
       onClick={onClick}
-      className={`${classes} active:scale-95 transition-all duration-[.2s] ease-in-out`}
+      className={`${classes} ${
+        disabled
+          ? ""
+          : "active:scale-95 transition-all duration-[.2s] ease-in-out"
+      } `}
     >
       {children}
     </button>

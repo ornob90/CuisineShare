@@ -5,12 +5,14 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, storage } from "../../FireStore/firestore.config";
 import useAuth from "../../hooks/useAuth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const PostForm = ({ handleModal }) => {
   const categoryRef = useRef();
   const fileRef = useRef();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [imgFile, setImgFile] = useState(null);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [imgUrl, setImgUrl] = useState(null);
   const { user } = useAuth();
   const postDbRef = collection(db, "posts");
@@ -85,20 +87,34 @@ const PostForm = ({ handleModal }) => {
     }
   };
 
-  const setImageUrl = async () => {
-    if (!imgFile) return;
+  // const setImageUrl = async () => {
+  //   if (!imgFile) return;
 
+  //   const userEmail = user.email.replace(/[\W_]/g, "");
+  //   const imageRef = ref(storage, `posts/${userEmail}+${v4()}`);
+
+  //   const snapshot = await uploadBytes(imageRef, imgFile);
+
+  //   const url = await getDownloadURL(snapshot.ref);
+  //   console.log(url);
+
+  //   setImgUrl(url);
+  // };
+
+  const handleImageUpload = async (e) => {
+    const imageFile = e.target.files[0];
     const userEmail = user.email.replace(/[\W_]/g, "");
-    const imageRef = ref(storage, `posts/${userEmail}`);
+    const imageRef = ref(storage, `posts/${userEmail}+${v4()}`);
 
-    const snapshot = await uploadBytes(imageRef, imgFile);
+    const snapshot = await uploadBytes(imageRef, imageFile);
 
     const url = await getDownloadURL(snapshot.ref);
-
     setImgUrl(url);
+    await setTimeout(() => setSubmitDisabled(false), 300);
   };
 
   const handlePostData = async (e) => {
+    setSubmitDisabled(true);
     e.preventDefault();
     const title = e.target.title.value;
     const description = e.target.description.value || " ";
@@ -107,8 +123,6 @@ const PostForm = ({ handleModal }) => {
     const cookingTime = e.target.time.value;
     // const category = categoryRef.current.value;
 
-    await setImageUrl();
-
     await handleAddPostDataToDB({
       title,
       description,
@@ -116,19 +130,13 @@ const PostForm = ({ handleModal }) => {
       ingredients,
       cookingTime,
       userEmail: user.email,
-      category: selectedCategory.value,
+      category: selectedCategory.value || " ",
       img: imgUrl,
       isFavorite: false,
       isLiked: false,
       createdAt: serverTimestamp(),
     });
   };
-
-  useEffect(() => {
-    const setUrl = async () => await setImageUrl();
-
-    setUrl();
-  }, [imgFile]);
 
   return (
     <div className="min-h-[300px] w-[80%]] h-[70%] font-sans">
@@ -193,7 +201,8 @@ const PostForm = ({ handleModal }) => {
             name="image"
             type="file"
             className="col-span-2 file:font-sans file:text-sm file:font-medium w-full max-w-xs text-sm font-sans"
-            onChange={(e) => setImgFile(e.target.files[0])}
+            // onChange={(e) => setImgFile(e.target.files[0])}
+            onChange={handleImageUpload}
           />
         </div>
         <div className="flex items-center  lg:justify-end lg:col-span-2 col-span-2 gap-4">
@@ -206,7 +215,12 @@ const PostForm = ({ handleModal }) => {
           </Button>
           <Button
             onClick={handleModal}
-            classes="bg-yellow-500 text-white py-1 px-3 rounded-lg font-bold"
+            disabled={submitDisabled}
+            classes={`${
+              submitDisabled
+                ? "bg-yellow-300 text-white"
+                : "bg-yellow-500 text-white"
+            }  py-1 px-3 rounded-lg font-bold`}
           >
             Submit
           </Button>

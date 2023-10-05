@@ -9,12 +9,23 @@ const ProfileRecipes = () => {
   const { posts } = useDb();
   const { user } = useAuth();
 
+  // console.log(Object.entries(posts));
+
   useEffect(() => {
-    setProfileRecipes(
-      Object.keys(posts).filter((post) => posts[post].userEmail === user.email)
+    const profilePostIds = Object.keys(posts).filter(
+      (post) => posts[post].userEmail === user.email
     );
 
-    // // console.log(posts);
+    // setProfileRecipes(
+    //   profilePostIds.sort(
+    //     (id1, id2) =>
+    //       posts[id1].createdAt.seconds - posts[id2].createdAt.seconds
+    //   )
+    // );
+
+    setProfileRecipes(profilePostIds);
+
+    // console.log(posts);
   }, [posts]);
 
   return (

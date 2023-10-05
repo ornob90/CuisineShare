@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Shared/Button";
 import Select from "../../components/Shared/Select";
 import RecipePost from "../../components/Shared/RecipePost";
@@ -8,6 +8,16 @@ import useDb from "../../hooks/useDb";
 
 const RecipeFeed = () => {
   const { posts } = useDb();
+
+  const [sortedPosts, setSortedPosts] = useState([]);
+
+  useEffect(() => {
+    const toArray = Object.entries(posts);
+
+    setSortedPosts(
+      toArray.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+    );
+  }, [posts]);
 
   return (
     <PrivateRoute>
@@ -44,8 +54,8 @@ const RecipeFeed = () => {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-8">
-          {Object.keys(posts).map((post) => (
-            <RecipePost key={posts[post].id} post={posts[post]} />
+          {sortedPosts.map((post) => (
+            <RecipePost key={post[1].id} post={post[1]} />
           ))}
         </div>
       </Container>

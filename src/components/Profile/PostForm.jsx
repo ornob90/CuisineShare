@@ -157,7 +157,9 @@ const PostForm = ({ handleModal }) => {
           renderInput={(params) => <TextField {...params} label="Category" />}
         />
         <div className="col-span-2 flex flex-col gap-2">
-          <label class="file:label text-sm font-sans">Upload your Image</label>
+          <label className="file:label text-sm font-sans">
+            Upload your Image
+          </label>
           <input
             type="file"
             className="col-span-2 file:font-sans file:text-sm file:font-medium w-full max-w-xs text-sm font-sans"

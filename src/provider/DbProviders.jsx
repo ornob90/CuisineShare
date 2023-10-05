@@ -15,29 +15,30 @@ const DbProviders = ({ children }) => {
   const reviewsRef = collection(db, "reviews");
 
   useEffect(() => {
-    const unsubscribe = handleSnaps(usersRef, setUsers);
+    const unsubscribe = handleSnaps("users", usersRef, setUsers);
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    const unsubscribe = handleSnaps(postsRef, setPosts);
+    const unsubscribe = handleSnaps("posts", postsRef, setPosts);
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    const unsubscribe = handleSnaps(reviewsRef, setReviews);
+    const unsubscribe = handleSnaps("reviews", reviewsRef, setReviews);
 
     return () => unsubscribe();
   }, []);
 
-  const handleSnaps = (collectionRef, setData) => {
+  const handleSnaps = (name, collectionRef, setData) => {
     const unsubscribe = onSnapshot(collectionRef, (querySnapShot) => {
-      const items = [];
+      const items = {};
 
       querySnapShot.forEach((doc) => {
-        items.push(doc.data());
+        // items.push(doc.data());
+        items[doc.id] = { ...doc.data(), id: doc.id };
       });
       setData(items);
       setDataLoading(false);

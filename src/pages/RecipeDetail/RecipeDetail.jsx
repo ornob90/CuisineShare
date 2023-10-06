@@ -29,10 +29,14 @@ const RecipeDetail = () => {
   useEffect(() => {
     if (reviews && reviews.length > 0) {
       setReviewList(
-        reviews.filter((review) => {
-          console.log(review.postID, postID, review.userEmail, user.email);
-          return review.postID === postID && review.userEmail === user.email;
-        })
+        reviews
+          .filter((review) => {
+            console.log(review.createdAt?.seconds);
+            return review.postID === postID && review.userEmail === user.email;
+          })
+          .sort(
+            (left, right) => right.createdAt?.seconds - left.createdAt?.seconds
+          )
       );
     }
     console.log(reviewList);

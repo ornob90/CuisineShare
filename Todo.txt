@@ -1,0 +1,11 @@
+// Todo
+
+1. Fav and like btn functionality
+2. add dp pic in each recipe post
+3. clicking dp user can see that profile in detail
+4. about page design
+5. edit of user profile about
+6. dynamic review in detail post
+7. recent three post in home page
+8. add rating option
+9. filter option in feed page

@@ -9,12 +9,12 @@ import useDb from "../../hooks/useDb";
 const RecipeFeed = () => {
   const { posts, favorites } = useDb();
 
-  const [allPosts, setAllPosts] = useState();
+  const [allPosts, setAllPosts] = useState([]);
   const [sortedPosts, setSortedPosts] = useState([]);
   const [query, setQuery] = useState([]);
 
   useEffect(() => {
-    console.log(allPosts);
+    // console.log(allPosts);
     setSortedPosts(
       allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
     );
@@ -48,7 +48,7 @@ const RecipeFeed = () => {
           <div className="relative pt-4 flex z-[1]">
             <input
               onChange={(e) => setQuery(e.target.value)}
-              className=" border focus:outline-none w-full py-2 sm:py-3 pl-4 sm:pl-5 rounded-l-lg text-sm sm:text-md "
+              className="w-full py-2 pl-4 text-sm border rounded-l-lg focus:outline-none sm:py-3 sm:pl-5 sm:text-md"
               type="text"
               placeholder="Search Your Food"
               value={query}
@@ -61,7 +61,7 @@ const RecipeFeed = () => {
             </Button>
           </div>
 
-          <div className="w-full flex gap-2 justify-end ">
+          <div className="flex justify-end w-full gap-2 ">
             <Select name="Sort By" options={["Date", "Reviews", "Ratings"]} />
             <Select
               name="Category"
@@ -80,7 +80,7 @@ const RecipeFeed = () => {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-8 mt-10">
           {sortedPosts?.map((post) => (
             <RecipePost key={post[1].id} post={post[1]} />
           ))}

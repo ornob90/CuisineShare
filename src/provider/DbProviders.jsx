@@ -42,24 +42,25 @@ const DbProviders = ({ children }) => {
 
   const handleSnaps = (name, collectionRef, setData) => {
     const unsubscribe = onSnapshot(collectionRef, (querySnapShot) => {
-      const items = {};
-      const favorites = [];
+      const objects = {};
+      const arrays = [];
 
-      if (name === "favorites") {
+      if (name === "favorites" || name === "reviews") {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
-          favorites.push({ ...doc.data(), id: doc.id });
+          arrays.push({ ...doc.data(), id: doc.id });
         });
-        setData(favorites);
+        setData(arrays);
         setDataLoading(false);
       } else {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
-          items[doc.id] = { ...doc.data(), id: doc.id };
+          objects[doc.id] = { ...doc.data(), id: doc.id };
         });
-        setData(items);
+        setData(objects);
         setDataLoading(false);
       }
+      console.log(posts);
     });
 
     return unsubscribe;

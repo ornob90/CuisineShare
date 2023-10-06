@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Container from "../../components/Shared/Container";
 import { Rating } from "@mui/material";
 import Button from "../../components/Shared/Button";
 import Review from "../../components/Review";
 import useAuth from "../../hooks/useAuth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
 import { useParams } from "react-router-dom";
 import useDb from "../../hooks/useDb";
@@ -12,27 +12,56 @@ import useDb from "../../hooks/useDb";
 const RecipeDetail = () => {
   const [commentInput, setCommentInput] = useState("");
   const [post, setPost] = useState({});
+  const [reviewList, setReviewList] = useState([]);
   const { user } = useAuth();
-  const { posts } = useDb();
+  const { posts, reviews } = useDb();
   const commentRef = useRef();
-  const { id } = useParams();
+  const { id: postID } = useParams();
 
-  const { img, cookingTime, steps, ingredients, title } = posts[id];
+  // console.log(reviews);
+
+  // useEffect(() =/
+  // console.log(posts);
+
+  const { img, cookingTime, steps, ingredients, title } = posts[postID] || {};
   const reviewDbRef = collection(db, "reviews");
+
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      setReviewList(
+        reviews.filter((review) => {
+          console.log(review.postID, postID, review.userEmail, user.email);
+          return review.postID === postID && review.userEmail === user.email;
+        })
+      );
+    }
+    console.log(reviewList);
+  }, [reviews]);
 
   const handleReview = async () => {
     try {
       const comment = commentRef.current.value;
       const userEmail = user.email;
-      const postId = "2osjkdfaosdhfasdf";
 
       setCommentInput("");
 
       await addDoc(reviewDbRef, {
         comment,
         userEmail,
-        postId,
+        postID,
+        createdAt: serverTimestamp(),
       });
+
+      // setReviewList(
+      //   reviews.filter(
+      //     (review) =>
+      //       review.postId === postID && review.userEmail === user.email
+      //   )
+      // );
+
+      // reviews.forEach((review) => {
+      //   console.log(review.postID, review.userEmail, user.email, postID);
+      // });
     } catch (err) {
       console.error(err);
     }
@@ -79,8 +108,8 @@ const RecipeDetail = () => {
           </Button>
         </div>
         <div className="mt-20 space-y-10">
-          {[1, 2, 3, 4, 5].map((e) => (
-            <Review key={e} />
+          {reviewList.map((review) => (
+            <Review key={review.id} review={review} />
           ))}
         </div>
       </div>

@@ -44,7 +44,7 @@ const RecipePost = ({ post }) => {
 
   // const favoriteDbRef = collection(db, "favorites");
 
-  const { posts } = useDb();
+  const { posts, usersByEmail } = useDb();
 
   const getDate = (seconds, nanoseconds) => {
     const milliseconds = seconds * 1000 + nanoseconds / 1000000;
@@ -127,33 +127,44 @@ const RecipePost = ({ post }) => {
       <div className="flex flex-col justify-between w-full gap-2 md:w-auto">
         <div className="flex justify-between">
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
+          <div className="flex items-center justify-end gap-2">
+            <p className="font-semibold">{usersByEmail[userEmail].userName}</p>
+            <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <Rating
+            className="pt-4 z-[-1]"
+            name="read-only"
+            value={3.5}
+            readOnly
+          />
           <div className="flex gap-4 text-2xl">
             {isLiked ? (
               <AiTwotoneHeart
-                className="active:scale-95 duration-300 text-3xl text-yellow-400"
+                className="text-3xl text-yellow-400 duration-300 active:scale-95"
                 onClick={handleLike}
               />
             ) : (
               <AiOutlineHeart
-                className="active:scale-95 duration-300 text-3xl"
+                className="text-3xl duration-300 active:scale-95"
                 onClick={handleLike}
               />
             )}
 
             {isFavorite ? (
               <FaBookmark
-                className="active:scale-95 duration-300"
+                className="duration-300 active:scale-95"
                 onClick={handleFavorite}
               />
             ) : (
               <FaRegBookmark
-                className="active:scale-95 duration-300"
+                className="duration-300 active:scale-95"
                 onClick={handleFavorite}
               />
             )}
           </div>
         </div>
-        <Rating className="pt-4 z-[-1]" name="read-only" value={3.5} readOnly />
         <p>{description}</p>
         <p>
           <span className="font-bold">Cooking Time: </span> {cookingTime}

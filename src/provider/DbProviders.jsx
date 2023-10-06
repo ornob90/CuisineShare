@@ -5,6 +5,7 @@ import { db } from "../FireStore/firestore.config";
 
 const DbProviders = ({ children }) => {
   const [users, setUsers] = useState({});
+  const [usersByEmail, setUsersByEmail] = useState([]);
   const [posts, setPosts] = useState({});
   const [reviews, setReviews] = useState({});
   const [favorites, setFavorites] = useState({});
@@ -18,6 +19,12 @@ const DbProviders = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = handleSnaps("users", usersRef, setUsers);
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = handleSnaps("usersByEmail", usersRef, setUsersByEmail);
 
     return () => unsubscribe();
   }, []);
@@ -52,6 +59,14 @@ const DbProviders = ({ children }) => {
         });
         setData(arrays);
         setDataLoading(false);
+      } else if (name === "usersByEmail") {
+        querySnapShot.forEach((doc) => {
+          // items.push(doc.data());
+          const data = doc.data();
+          objects[data.email] = { ...data, id: doc.id };
+        });
+        setData(objects);
+        setDataLoading(false);
       } else {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
@@ -60,13 +75,20 @@ const DbProviders = ({ children }) => {
         setData(objects);
         setDataLoading(false);
       }
-      console.log(posts);
+      // console.log(posts);
     });
 
     return unsubscribe;
   };
 
-  const dbInfo = { users, posts, reviews, favorites, dataLoading };
+  const dbInfo = {
+    users,
+    posts,
+    reviews,
+    favorites,
+    dataLoading,
+    usersByEmail,
+  };
   return <DbContext.Provider value={dbInfo}>{children}</DbContext.Provider>;
 };
 

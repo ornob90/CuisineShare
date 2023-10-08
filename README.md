@@ -1,8 +1,16 @@
-# React + Vite
+# Social Event Management Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Welcome to the Social Event Management Project! This web application simplifies the process of planning and managing various social events, including weddings, birthdays, anniversaries, and more. It offers a user-friendly interface and a range of useful features to make event planning a breeze.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **Discover Events**: Browse and discover upcoming social events.
+- **Explore Services**: Explore different service types available for various events.
+- **Read Testimonials**: Gain insights from testimonials shared by satisfied customers.
+- **User Authentication**: Log in seamlessly using Google or email/password.
+- **Event Details**: View detailed event information, including organizers and contact details.
+- **Pricing Information**: Check pricing options for event planning services.
+- **Stay Informed**: Stay updated about upcoming events with visual timers.
+- **Dynamic Profile Pic and Name": After login user can see the pictures and name in the navbar. 

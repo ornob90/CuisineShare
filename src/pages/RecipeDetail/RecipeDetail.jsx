@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Container from "../../components/Shared/Container";
-import { Rating } from "@mui/material";
+import Rating from "../../components/Shared/Rating";
 import Button from "../../components/Shared/Button";
 import Review from "../../components/Review";
 import useAuth from "../../hooks/useAuth";
@@ -13,6 +13,10 @@ const RecipeDetail = () => {
   const [commentInput, setCommentInput] = useState("");
   const [post, setPost] = useState({});
   const [reviewList, setReviewList] = useState([]);
+  const [rating, setRating] = useState(1);
+
+  console.log(rating);
+
   const { user } = useAuth();
   const { posts, reviews } = useDb();
   const commentRef = useRef();
@@ -39,18 +43,27 @@ const RecipeDetail = () => {
           )
       );
     }
-    console.log(reviewList);
+    // console.log(reviewList);
   }, [reviews]);
 
-  const handleReview = async () => {
+  const handleRating = (editable, newRating) => {
+    setRating((prev) => {
+      return editable ? newRating : prev;
+    });
+  };
+
+  const handleReview = async (e) => {
     try {
-      const comment = commentRef.current.value;
+      e.preventDefault();
+
+      const comment = e.target.comment.value;
       const userEmail = user.email;
 
-      setCommentInput("");
+      e.target.comment.value = "";
 
       await addDoc(reviewDbRef, {
         comment,
+        rating,
         userEmail,
         postID,
         createdAt: serverTimestamp(),
@@ -94,26 +107,30 @@ const RecipeDetail = () => {
             <span className="font-bold">Ingredients </span> {ingredients}
           </p>
         </div>
-        <div className="mt-10 z-[1] relative w-[90%] sm:w-[55%] pt-4 flex">
+        <form
+          onSubmit={handleReview}
+          className="mt-10 z-[1] relative w-[90%] sm:w-[55%] pt-4 flex flex-col gap-4"
+        >
           <input
-            ref={commentRef}
-            className="w-full py-3 pl-5 border rounded-l-lg focus:outline-none text-md"
+            className="w-full py-3 pl-5 border rounded-lg focus:outline-none text-md"
             type="text"
             placeholder="Comment"
-            value={commentInput}
-            onChange={(e) => setCommentInput(e.target.value)}
+            name="comment"
           />
-          <Button
-            type="button"
-            onClick={handleReview}
-            classes="bg-black py-3 px-8 text-sm rounded-r-lg text-white "
-          >
-            Comment
-          </Button>
-        </div>
+          <Rating rating={rating} handleRating={handleRating} editable />
+          <div className="mt-4">
+            <Button classes="bg-black py-3 px-8 text-sm rounded-lg text-white ">
+              Comment
+            </Button>
+          </div>
+        </form>
         <div className="mt-20 space-y-10">
           {reviewList.map((review) => (
-            <Review key={review.id} review={review} />
+            <Review
+              key={review.id}
+              review={review}
+              handleRating={handleRating}
+            />
           ))}
         </div>
       </div>

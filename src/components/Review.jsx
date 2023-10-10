@@ -1,8 +1,9 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
 import Rating from "./Shared/Rating";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-const Review = ({ review, setRating }) => {
+const Review = ({ review }) => {
   const { user } = useAuth();
 
   const { comment, rating } = review || {};
@@ -14,7 +15,17 @@ const Review = ({ review, setRating }) => {
         <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
         <p>{displayName}</p>
       </div>
-      <Rating rating={rating} setRating={setRating} />
+      <div className="flex items-center">
+        {[1, 2, 3, 4, 5].map((rate) => (
+          <span key={rate}>
+            {rate <= rating ? (
+              <AiFillStar className="text-xl text-orange-400" />
+            ) : (
+              <AiOutlineStar className="text-xl text-orange-400" />
+            )}
+          </span>
+        ))}
+      </div>
       <p className="text-sm md:text-base font-bold w-full lg:w-[60%] mt-5">
         {comment}
       </p>

@@ -35,7 +35,7 @@ const RecipeDetail = () => {
       setReviewList(
         reviews
           .filter((review) => {
-            console.log(review.createdAt?.seconds);
+            // console.log(review.createdAt?.seconds);
             return review.postID === postID && review.userEmail === user.email;
           })
           .sort(
@@ -46,10 +46,8 @@ const RecipeDetail = () => {
     // console.log(reviewList);
   }, [reviews]);
 
-  const handleRating = (editable, newRating) => {
-    setRating((prev) => {
-      return editable ? newRating : prev;
-    });
+  const handleRating = (newRating) => {
+    setRating(newRating);
   };
 
   const handleReview = async (e) => {
@@ -95,9 +93,7 @@ const RecipeDetail = () => {
             className="object-cover w-full h-full rounded-lg"
           />
         </div>
-        <div className="flex flex-col gap-5">
-          <Rating className="pt-4 -z-1" name="read-only" value={3.5} readOnly />
-
+        <div className="flex flex-col gap-5 mt-6">
           <p>{steps}</p>
 
           <p>
@@ -117,7 +113,7 @@ const RecipeDetail = () => {
             placeholder="Comment"
             name="comment"
           />
-          <Rating rating={rating} handleRating={handleRating} editable />
+          <Rating rating={rating} handleRating={handleRating} />
           <div className="mt-4">
             <Button classes="bg-black py-3 px-8 text-sm rounded-lg text-white ">
               Comment
@@ -126,11 +122,7 @@ const RecipeDetail = () => {
         </form>
         <div className="mt-20 space-y-10">
           {reviewList.map((review) => (
-            <Review
-              key={review.id}
-              review={review}
-              handleRating={handleRating}
-            />
+            <Review key={review.id} review={review} />
           ))}
         </div>
       </div>

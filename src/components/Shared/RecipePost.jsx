@@ -25,6 +25,7 @@ const RecipePost = ({ post }) => {
   ];
 
   const navigate = useNavigate();
+
   const {
     title,
     ingredients,
@@ -45,6 +46,8 @@ const RecipePost = ({ post }) => {
   // const favoriteDbRef = collection(db, "favorites");
 
   const { posts, usersByEmail } = useDb();
+
+  const userId = usersByEmail[userEmail].id;
 
   const getDate = (seconds, nanoseconds) => {
     const milliseconds = seconds * 1000 + nanoseconds / 1000000;
@@ -129,7 +132,10 @@ const RecipePost = ({ post }) => {
           <h1 className="mb-2 text-3xl font-bold">{title}</h1>
           <div className="flex items-center justify-end gap-2">
             <p className="font-semibold">{usersByEmail[userEmail].userName}</p>
-            <div className="h-[40px] w-[40px] rounded-full border-black border-2"></div>
+            <div
+              onClick={() => navigate(`/profile/${userId}`)}
+              className="h-[40px] w-[40px] rounded-full border-black border-2"
+            ></div>
           </div>
         </div>
         <div className="flex items-center justify-between">

@@ -63,6 +63,7 @@ const DbProviders = ({ children }) => {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
           const data = doc.data();
+
           objects[data.email] = { ...data, id: doc.id };
         });
         setData(objects);

@@ -26,15 +26,15 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/profile",
+        path: "/profile/:id",
         element: <Profile />,
         children: [
           {
-            path: "/profile",
+            path: "/profile/:id/posts",
             element: <ProfileRecipes />,
           },
           {
-            path: "profile-about",
+            path: "/profile/:id/profile-about",
             element: <ProfileAbout />,
           },
         ],

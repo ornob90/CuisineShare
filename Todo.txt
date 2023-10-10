@@ -1,7 +1,7 @@
 // Todo
 
 1. Fav and like btn functionality
-2. add dp pic in each recipe post
+2. add dp pic and username in each recipe post with dynamic behavior ✔ 
 3. clicking dp user can see that profile in detail
 4. about page design
 5. edit of user profile about

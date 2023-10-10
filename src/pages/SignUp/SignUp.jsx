@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../FireStore/firestore.config";
-import { v4 } from "uuid";
 import useDb from "../../hooks/useDb";
 
 const SignUp = () => {

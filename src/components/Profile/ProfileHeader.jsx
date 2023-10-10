@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Button from "../Shared/Button";
 import PostForm from "./PostForm";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ id }) => {
   const [modal, setModal] = useState(false);
 
   const handleModal = () => {
@@ -32,12 +32,15 @@ const ProfileHeader = () => {
         </div>
         <div className="flex items-center gap-5 text-lg font-bold">
           <NavLink
-            to="/profile/profile-about"
+            to={`/profile/${id}/profile-about`}
             className="duration-300 active:scale-95"
           >
             About
           </NavLink>
-          <NavLink to="/profile" className="duration-300 active:scale-95">
+          <NavLink
+            to={`/profile/${id}/posts`}
+            className="duration-300 active:scale-95"
+          >
             Posts
           </NavLink>
           <Button

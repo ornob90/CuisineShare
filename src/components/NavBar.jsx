@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "./Shared/Container";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "./Shared/Button";
@@ -7,12 +7,27 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import NavContext from "../context/NavContext";
 import useAuth from "../hooks/useAuth";
 import PrivateRoute from "../routes/PrivateRoute";
+import useDb from "../hooks/useDb";
 
-const NavBar = () => {
+const NavBar = ({ users }) => {
   const { menu, handleMenu } = useContext(NavContext);
+  const [curUserId, setCurUserId] = useState(null);
   const navigate = useNavigate();
+  const { user, signOutMethod } = useAuth();
 
-  const { signOutMethod } = useAuth();
+  useEffect(() => {
+    if (users) {
+      setCurUserId(
+        Object.keys(users).find((id) => {
+          // console.log(id);
+          return users[id].email === user.email;
+        })
+      );
+    }
+    // console.log(users);
+  }, [users]);
+
+  // console.log(curUserId);
 
   const navLinks = (
     <>
@@ -69,7 +84,7 @@ const NavBar = () => {
               </div>
               <div className="flex items-center justify-end gap-6">
                 <div
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate(`/profile/${curUserId}`)}
                   className="h-[40px] w-[40px] rounded-full border-black border-2"
                 ></div>
 

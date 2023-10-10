@@ -1,19 +1,22 @@
 import React from "react";
+import { useOutletContext } from "react-router-dom";
 
 const ProfileAbout = () => {
+  const { hello } = useOutletContext();
+  console.log(hello);
   return (
     <div className="my-10 w-[80%] mx-auto">
-      <h3 className="mb-5 font-semibold text-lg">Bio</h3>
+      <h3 className="mb-5 text-lg font-semibold">Bio</h3>
       <input
         type="text"
         placeholder="Bio"
-        className="input input-bordered w-full max-w-xs"
+        className="w-full max-w-xs input input-bordered"
       />
-      <h3 className="my-5 font-semibold text-lg">Address</h3>
+      <h3 className="my-5 text-lg font-semibold">Address</h3>
       <input
         type="text"
         placeholder="Address"
-        className=" input input-bordered w-full max-w-xs"
+        className="w-full max-w-xs input input-bordered"
       />
     </div>
   );

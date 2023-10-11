@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../../components/Shared/Container";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
 
 const Profile = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(`/profile/${id}/posts`);
+  }, []);
 
   return (
     <Container>

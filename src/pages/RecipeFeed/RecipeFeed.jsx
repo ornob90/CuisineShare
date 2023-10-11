@@ -9,6 +9,8 @@ import useDb from "../../hooks/useDb";
 const RecipeFeed = () => {
   const { posts, favorites } = useDb();
 
+  // console.log(posts);
+
   const [allPosts, setAllPosts] = useState([]);
 
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -79,8 +81,9 @@ const RecipeFeed = () => {
   }, [allPosts]);
 
   useEffect(() => {
+    // setFilteredPosts(Object.entries(posts));
     setAllPosts(Object.entries(posts));
-  }, []);
+  }, [posts]);
 
   const handleSearch = () => {
     console.log(query);

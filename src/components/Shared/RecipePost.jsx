@@ -36,8 +36,6 @@ const RecipePost = ({ post }) => {
   const {
     title,
     ingredients,
-    isFavorite,
-    isLiked,
     category,
     description,
     id: curPostID,
@@ -50,10 +48,7 @@ const RecipePost = ({ post }) => {
   const favoritesRef = collection(db, "favorites");
   const likesRef = collection(db, "likes");
 
-  const [favorite, setFavorite] = useState(isLiked);
-  const [liked, setLiked] = useState(isFavorite);
-
-  const { posts, usersByEmail, favorites, likes } = useDb();
+  const { usersByEmail, favorites, likes } = useDb();
   const { user } = useAuth();
 
   const userId = usersByEmail[userEmail].id;

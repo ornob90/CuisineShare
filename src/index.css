@@ -21,6 +21,16 @@
     background-size: cover;
   }
 
+  .bg-banner {
+    background: linear-gradient(
+        to right,
+        rgba(117, 117, 117, 0.8),
+        rgba(48, 48, 48, 0.8)
+      ),
+      url("https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80");
+    background-size: cover;
+  }
+
   .star {
     visibility: hidden;
     font-size: 30px;

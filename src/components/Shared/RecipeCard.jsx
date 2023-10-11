@@ -2,18 +2,18 @@ import React from "react";
 import { Rating } from "@mui/material";
 
 const RecipeCard = ({ posts, image, title }) => {
-  // const { img, title } = posts || {};
+  const { img, title: dbTitle } = posts || {};
   return (
     <div className={`duration-300 min-h-[200px]`}>
       <div className="w-full h-[65%] object-cover">
         <img
-          src={image}
-          alt={title}
+          src={img || image}
+          alt={dbTitle || title}
           className="w-full h-full object-cover rounded-t-lg"
         />
       </div>
       <Rating className="pt-4 -z-1" name="read-only" value={3.5} readOnly />
-      <h1 className="text-gray-600 font-medium">{title}</h1>
+      <h1 className="text-gray-600 font-medium">{dbTitle || title}</h1>
     </div>
   );
 };

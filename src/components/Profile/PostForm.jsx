@@ -141,8 +141,6 @@ const PostForm = ({ handleModal }) => {
       userEmail: user.email,
       category: selectedCategory.value || " ",
       img: imgUrl,
-      isLiked: false,
-      isFavorite: false,
       createdAt: serverTimestamp(),
     });
   };

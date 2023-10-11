@@ -26,28 +26,19 @@ const Favorites = () => {
       title: "Berry Madness Biscuits",
     },
   ];
-  const { posts } = useDb();
+  const { posts, favorites } = useDb();
   const { user } = useAuth();
 
   const [favoritePosts, setFavoritePosts] = useState([]);
 
   useEffect(() => {
-    // setFavoritePosts(
-    //   Object.keys(posts).filter((postId) => {
-    //     return (
-    //       posts[postId].userEmail === user.email && posts[postId].isFavorite
-    //     );
-    //   })
-    // );
-    Object.keys(posts).forEach((postId, idx) =>
-      console.log(
-        posts[postId].isFavorite,
-        posts[postId].userEmail,
-        user.email,
-        idx
-      )
+    setFavoritePosts(
+      Object.keys(favorites).filter((postId) => {
+        return favorites[postId].email === user.email;
+      })
     );
-  }, [posts]);
+    console.log(posts[favoritePosts[0]]);
+  }, [favorites]);
 
   return (
     <PrivateRoute>

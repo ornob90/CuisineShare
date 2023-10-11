@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import RecipePost from "../Shared/RecipePost";
 import useDb from "../../hooks/useDb";
 import useAuth from "../../hooks/useAuth";
+import { useOutletContext } from "react-router-dom";
 
 const ProfileRecipes = () => {
   const [profileRecipes, setProfileRecipes] = useState([]);
 
   const { posts } = useDb();
   const { user } = useAuth();
+  const { users } = useDb();
+  const { id } = useOutletContext();
 
   // console.log(Object.entries(posts));
 
   useEffect(() => {
-    const profilePostIds = Object.keys(posts).filter(
-      (post) => posts[post].userEmail === user.email
-    );
+    const profilePostIds = Object.keys(posts).filter((post) => {
+      console.log(posts[post].userEmail, users[id].email);
+      return posts[post].userEmail === users[id].email;
+    });
 
     // setProfileRecipes(
     //   profilePostIds.sort(
@@ -26,7 +30,7 @@ const ProfileRecipes = () => {
     setProfileRecipes(profilePostIds);
 
     // console.log(posts);
-  }, [posts]);
+  }, [posts, id]);
 
   return (
     <div className="mt-20 grid grid-cols-1 gap-10">

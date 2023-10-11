@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../Shared/Button";
 import PostForm from "./PostForm";
+import useAuth from "../../hooks/useAuth";
+import useDb from "../../hooks/useDb";
 
 const ProfileHeader = ({ id }) => {
   const [modal, setModal] = useState(false);
+
+  const { user } = useAuth();
+  const { users } = useDb();
+
+  // console.log(users, user.email);
 
   const handleModal = () => {
     setModal(!modal);
@@ -27,28 +34,40 @@ const ProfileHeader = ({ id }) => {
         />
 
         <div className="col-span-3 ">
-          <h1 className="text-3xl font-bold">Kazi Towfiq</h1>
+          <h1 className="text-3xl font-bold">{users[id].userName}</h1>
           <p className="text-sm">Lorem ipsum dolor sit.</p>
         </div>
         <div className="flex items-center gap-5 text-lg font-bold">
           <NavLink
             to={`/profile/${id}/profile-about`}
-            className="duration-300 active:scale-95"
+            className={({ isActive }) =>
+              `duration-300 active:scale-95 ${
+                isActive ? "border-b-2 border-yellow-500" : ""
+              }`
+            }
           >
             About
           </NavLink>
           <NavLink
             to={`/profile/${id}/posts`}
-            className="duration-300 active:scale-95"
+            className={({ isActive }) =>
+              `duration-300 active:scale-95 ${
+                isActive ? "border-b-2 border-yellow-500" : ""
+              }`
+            }
           >
             Posts
           </NavLink>
-          <Button
-            classes="bg-black text-white text-base px-3 py-1 rounded-lg"
-            onClick={handleModal}
-          >
-            Upload
-          </Button>
+          {users[id].email === user.email ? (
+            <Button
+              classes="bg-black text-white text-base px-3 py-1 rounded-lg"
+              onClick={handleModal}
+            >
+              Upload
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div

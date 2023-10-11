@@ -14,9 +14,9 @@ const RecipeFeed = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [query, setQuery] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [sortBy, setSortBy] = useState([]);
+  const [sortBy, setSortBy] = useState("Sort By");
 
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState("Category");
 
   const handleSelectedOptionCatg = (e) => {
     setCategory(e.target.value);

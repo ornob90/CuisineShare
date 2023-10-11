@@ -2,6 +2,7 @@ import React from "react";
 
 const Select = ({ name, options, value, handleSelectedOption }) => {
   // console.log(options);
+  console.log("value", value);
   return (
     <div className="">
       <select

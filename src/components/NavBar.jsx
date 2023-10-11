@@ -24,6 +24,7 @@ const NavBar = ({ users }) => {
         })
       );
     }
+    console.log(curUserId);
     // console.log(users);
   }, [users]);
 
@@ -84,7 +85,7 @@ const NavBar = ({ users }) => {
               </div>
               <div className="flex items-center justify-end gap-6">
                 <div
-                  onClick={() => navigate(`/profile/${curUserId}`)}
+                  onClick={() => navigate(`/profile/${curUserId}/posts`)}
                   className="h-[40px] w-[40px] rounded-full border-black border-2"
                 ></div>
 

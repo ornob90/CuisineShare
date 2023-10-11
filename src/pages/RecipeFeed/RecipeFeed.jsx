@@ -11,13 +11,15 @@ const RecipeFeed = () => {
 
   const [allPosts, setAllPosts] = useState([]);
   const [sortedPosts, setSortedPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [query, setQuery] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const [category, setCategory] = useState(null);
 
-  const handleSelectedCategory = (e) => {
+  const handleSelectedOption = (e) => {
     setCategory(e.target.value);
+    console.log(e.target.value);
   };
 
   useEffect(() => {
@@ -74,10 +76,14 @@ const RecipeFeed = () => {
           </div>
 
           <div className="flex justify-end w-full gap-2 ">
-            <Select name="Sort By" options={["Latest Post"]} />
+            <Select
+              name="Sort By"
+              options={["Latest Post"]}
+              handleSelectedOption={handleSelectedOption}
+            />
             <Select
               category={category}
-              handleSelectedCategory={handleSelectedCategory}
+              handleSelectedOption={handleSelectedOption}
               name="Category"
               options={categories || []}
             />

@@ -12,12 +12,24 @@ const RecipeFeed = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [sortedPosts, setSortedPosts] = useState([]);
   const [query, setQuery] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const [category, setCategory] = useState(null);
+
+  const handleSelectedCategory = (e) => {
+    setCategory(e.target.value);
+  };
 
   useEffect(() => {
     // console.log(allPosts);
     setSortedPosts(
       allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
     );
+
+    const allCategory = allPosts.map((post) => post[1].category);
+
+    setCategories([...new Set(allCategory)]);
+
     // setSortedPosts(toArray);
     // console.log(toArray);
   }, [allPosts]);
@@ -62,20 +74,12 @@ const RecipeFeed = () => {
           </div>
 
           <div className="flex justify-end w-full gap-2 ">
-            <Select name="Sort By" options={["Date", "Reviews", "Ratings"]} />
+            <Select name="Sort By" options={["Latest Post"]} />
             <Select
+              category={category}
+              handleSelectedCategory={handleSelectedCategory}
               name="Category"
-              options={[
-                "Breakfast",
-                "Desserts",
-                "Baking",
-                "Vegan",
-                "Asian",
-                "Mexican",
-                "Italian",
-                "BBQ",
-                "Seafood",
-              ]}
+              options={categories || []}
             />
           </div>
         </div>

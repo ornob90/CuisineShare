@@ -8,7 +8,7 @@ const DbProviders = ({ children }) => {
   const [usersByEmail, setUsersByEmail] = useState([]);
   const [posts, setPosts] = useState({});
   const [reviews, setReviews] = useState({});
-  const [favorites, setFavorites] = useState({});
+  const [favorites, setFavorites] = useState([]);
 
   const [dataLoading, setDataLoading] = useState(true);
 
@@ -52,12 +52,21 @@ const DbProviders = ({ children }) => {
       const objects = {};
       const arrays = [];
 
-      if (name === "favorites" || name === "reviews") {
+      if (name === "reviews") {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
           arrays.push({ ...doc.data(), id: doc.id });
         });
         setData(arrays);
+        setDataLoading(false);
+      } else if (name === "favorites") {
+        querySnapShot.forEach((doc) => {
+          // items.push(doc.data());
+          const data = doc.data();
+
+          objects[data.postId] = { ...data };
+        });
+        setData(objects);
         setDataLoading(false);
       } else if (name === "usersByEmail") {
         querySnapShot.forEach((doc) => {

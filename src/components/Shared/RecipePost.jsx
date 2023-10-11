@@ -5,8 +5,15 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../FireStore/firestore.config";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import useDb from "../../hooks/useDb";
+import useAuth from "../../hooks/useAuth";
 
 const RecipePost = ({ post }) => {
   const months = [
@@ -33,19 +40,20 @@ const RecipePost = ({ post }) => {
     isLiked,
     category,
     description,
-    id,
+    id: curPostID,
     img,
     cookingTime,
     createdAt,
     userEmail,
   } = post || {};
 
+  const favoritesRef = collection(db, "favorites");
+
   const [favorite, setFavorite] = useState(isLiked);
   const [liked, setLiked] = useState(isFavorite);
 
-  // const favoriteDbRef = collection(db, "favorites");
-
-  const { posts, usersByEmail } = useDb();
+  const { posts, usersByEmail, favorites } = useDb();
+  const { user } = useAuth();
 
   const userId = usersByEmail[userEmail].id;
 
@@ -85,6 +93,32 @@ const RecipePost = ({ post }) => {
   const handleFavorite = async () => {
     // setFavorite(!favorite);
     await updateFavorite(!isFavorite);
+  };
+
+  const handleAddFavorite = async () => {
+    try {
+      const curUserEmail = user.email;
+      const curPostId = curPostID;
+
+      const newData = {
+        email: curUserEmail,
+        postId: curPostID,
+      };
+
+      const favoriteDocRef = doc(favoritesRef, newData.postId);
+      await setDoc(favoriteDocRef, newData);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleDelFavorite = async () => {
+    try {
+      const favoriteDocRef = doc(favoritesRef, curPostID);
+      await deleteDoc(favoriteDocRef, favoriteDocRef);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   // const handleFavorite = async () => {
@@ -158,15 +192,16 @@ const RecipePost = ({ post }) => {
               />
             )}
 
-            {isFavorite ? (
+            {favorites[curPostID] &&
+            favorites[curPostID]?.email === user.email ? (
               <FaBookmark
                 className="duration-300 active:scale-95"
-                onClick={handleFavorite}
+                onClick={handleDelFavorite}
               />
             ) : (
               <FaRegBookmark
                 className="duration-300 active:scale-95"
-                onClick={handleFavorite}
+                onClick={handleAddFavorite}
               />
             )}
           </div>

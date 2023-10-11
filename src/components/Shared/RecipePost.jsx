@@ -48,11 +48,12 @@ const RecipePost = ({ post }) => {
   } = post || {};
 
   const favoritesRef = collection(db, "favorites");
+  const likesRef = collection(db, "likes");
 
   const [favorite, setFavorite] = useState(isLiked);
   const [liked, setLiked] = useState(isFavorite);
 
-  const { posts, usersByEmail, favorites } = useDb();
+  const { posts, usersByEmail, favorites, likes } = useDb();
   const { user } = useAuth();
 
   const userId = usersByEmail[userEmail].id;
@@ -71,34 +72,33 @@ const RecipePost = ({ post }) => {
     return formattedDate;
   };
 
-  const updateLike = async (newLike) => {
-    const postDoc = doc(db, "posts", id);
-    const newFields = { isLiked: newLike };
-    await updateDoc(postDoc, newFields);
+  const handleAddLikes = async () => {
+    try {
+      const curUserEmail = user.email;
+
+      const newData = {
+        email: curUserEmail,
+        postId: curPostID,
+      };
+
+      const likeDocRef = doc(likesRef, newData.postId);
+      await setDoc(likeDocRef, newData);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
-  const updateFavorite = async (newFav) => {
-    const postDoc = doc(db, "posts", id);
-    const newFields = { isFavorite: newFav };
-    await updateDoc(postDoc, newFields);
+  const handleDelLikes = async () => {
+    try {
+      const likeDocRef = doc(likesRef, curPostID);
+      await deleteDoc(likeDocRef, likeDocRef);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
-
-  const handleLike = async () => {
-    // setLiked(!liked);
-    // await updateLike(!liked);
-
-    await updateLike(!isLiked);
-  };
-
-  const handleFavorite = async () => {
-    // setFavorite(!favorite);
-    await updateFavorite(!isFavorite);
-  };
-
   const handleAddFavorite = async () => {
     try {
       const curUserEmail = user.email;
-      const curPostId = curPostID;
 
       const newData = {
         email: curUserEmail,
@@ -121,7 +121,6 @@ const RecipePost = ({ post }) => {
     }
   };
 
-  // const handleFavorite = async () => {
   //   // await setFavorite(!favorite);
   //   // await updateFavorite(!favorite);
 
@@ -180,15 +179,15 @@ const RecipePost = ({ post }) => {
             readOnly
           />
           <div className="flex gap-4 text-2xl">
-            {isLiked ? (
+            {likes && likes[curPostID]?.email === user.email ? (
               <AiTwotoneHeart
                 className="text-3xl text-yellow-400 duration-300 active:scale-95"
-                onClick={handleLike}
+                onClick={handleDelLikes}
               />
             ) : (
               <AiOutlineHeart
                 className="text-3xl duration-300 active:scale-95"
-                onClick={handleLike}
+                onClick={handleAddLikes}
               />
             )}
 

@@ -9,6 +9,7 @@ const DbProviders = ({ children }) => {
   const [posts, setPosts] = useState({});
   const [reviews, setReviews] = useState({});
   const [favorites, setFavorites] = useState([]);
+  const [likes, setLikes] = useState([]);
 
   const [dataLoading, setDataLoading] = useState(true);
 
@@ -16,6 +17,7 @@ const DbProviders = ({ children }) => {
   const postsRef = collection(db, "posts");
   const reviewsRef = collection(db, "reviews");
   const favoriteRef = collection(db, "favorites");
+  const likesRef = collection(db, "likes");
 
   useEffect(() => {
     const unsubscribe = handleSnaps("users", usersRef, setUsers);
@@ -47,6 +49,12 @@ const DbProviders = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = handleSnaps("likes", likesRef, setLikes);
+
+    return () => unsubscribe();
+  }, []);
+
   const handleSnaps = (name, collectionRef, setData) => {
     const unsubscribe = onSnapshot(collectionRef, (querySnapShot) => {
       const objects = {};
@@ -59,7 +67,7 @@ const DbProviders = ({ children }) => {
         });
         setData(arrays);
         setDataLoading(false);
-      } else if (name === "favorites") {
+      } else if (name === "favorites" || name === "likes") {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
           const data = doc.data();
@@ -96,6 +104,7 @@ const DbProviders = ({ children }) => {
     posts,
     reviews,
     favorites,
+    likes,
     dataLoading,
     usersByEmail,
   };

@@ -14,13 +14,66 @@ const RecipeFeed = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [query, setQuery] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [sortBy, setSortBy] = useState([]);
 
   const [category, setCategory] = useState(null);
 
-  const handleSelectedOption = (e) => {
+  const handleSelectedOptionCatg = (e) => {
     setCategory(e.target.value);
-    console.log(e.target.value);
   };
+
+  const handleSelectedOptionSort = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  // console.log(filteredPosts);
+
+  useEffect(() => {
+    // console.log(category);
+    // if (category === "Sort By" || category === "Category") {
+    //   setFilteredPosts(allPosts);
+    // } else if (category === "Latest Posts") {
+    //   setFilteredPosts(
+    //     allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+    //   );
+    // } else {
+    //   setFilteredPosts(
+    //     allPosts.filter((post) => post[1].category === category)
+    //   );
+    // }
+
+    if (sortBy === "Sort By") {
+      if (category === "Category") {
+        setFilteredPosts(allPosts);
+      } else {
+        setFilteredPosts((prevPosts) =>
+          prevPosts?.filter((post) => post[1].category === category)
+        );
+      }
+    }
+
+    if (category === "Category") {
+      if (sortBy === "Latest Posts") {
+        setFilteredPosts(
+          allPosts?.sort(
+            (a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds
+          )
+        );
+      }
+    } else if (category !== "Category") {
+      if (sortBy === "Latest Posts") {
+        setFilteredPosts(
+          allPosts
+            ?.filter((post) => post[1].category === category)
+            ?.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+        );
+      } else {
+        setFilteredPosts(
+          allPosts?.filter((post) => post[1].category === category)
+        );
+      }
+    }
+  }, [category]);
 
   useEffect(() => {
     // console.log(allPosts);
@@ -34,6 +87,7 @@ const RecipeFeed = () => {
 
     // setSortedPosts(toArray);
     // console.log(toArray);
+    setFilteredPosts(allPosts);
   }, [allPosts]);
 
   useEffect(() => {
@@ -78,12 +132,13 @@ const RecipeFeed = () => {
           <div className="flex justify-end w-full gap-2 ">
             <Select
               name="Sort By"
-              options={["Latest Post"]}
-              handleSelectedOption={handleSelectedOption}
+              options={["Latest Posts"]}
+              handleSelectedOption={handleSelectedOptionSort}
+              value={sortBy}
             />
             <Select
-              category={category}
-              handleSelectedOption={handleSelectedOption}
+              value={category}
+              handleSelectedOption={handleSelectedOptionCatg}
               name="Category"
               options={categories || []}
             />
@@ -91,7 +146,7 @@ const RecipeFeed = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-8 mt-10">
-          {sortedPosts?.map((post) => (
+          {filteredPosts?.map((post) => (
             <RecipePost key={post[1].id} post={post[1]} />
           ))}
         </div>

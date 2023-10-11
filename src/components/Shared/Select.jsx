@@ -1,13 +1,13 @@
 import React from "react";
 
-const Select = ({ name, options, category, handleSelectedOption }) => {
+const Select = ({ name, options, value, handleSelectedOption }) => {
   // console.log(options);
   return (
-    <div className="h-[100px]">
+    <div className="">
       <select
-        className="max-h-[50px]  w-full max-w-xs border-none select select-primary focus:outline-none overflow-auto"
-        value={category}
+        className="w-full max-w-xs border-none select select-primary focus:outline-none overflow-auto"
         onChange={handleSelectedOption}
+        value={value}
       >
         <option defaultValue>{name}</option>
         {options?.map((option) => (

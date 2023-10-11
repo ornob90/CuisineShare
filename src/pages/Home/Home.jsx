@@ -49,15 +49,10 @@ const Home = () => {
     },
   ];
 
-  const [bannerSearchQuery, handleBannerSearchQuery] = useOutletContext();
-
   return (
     <PrivateRoute>
       <Container>
-        <Banner
-          bannerSearchQuery={bannerSearchQuery}
-          handleBannerSearchQuery={handleBannerSearchQuery}
-        />
+        <Banner />
         <RecipeHighlight title="Super Delicious" recipes={recipes} />
         <RecipeHighlight title="Sweet Tooth" recipes={sweets} />
         <div className="my-10 bg-yellow-300 py-28 w-[90%] mx-auto flex flex-col justify-center items-center text-center">

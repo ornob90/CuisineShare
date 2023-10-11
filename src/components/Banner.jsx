@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import Button from "./Shared/Button";
 import NavContext from "../context/NavContext";
+import { useNavigate } from "react-router-dom";
 
-const Banner = ({ bannerSearchQuery, handleBannerSearchQuery }) => {
+const Banner = () => {
   const { menu } = useContext(NavContext);
+  const navigate = useNavigate();
 
   return (
     <div className="bg-gray-200">
@@ -25,16 +27,11 @@ const Banner = ({ bannerSearchQuery, handleBannerSearchQuery }) => {
             >
               <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4">
                 <input
-                  onChange={(e) => handleBannerSearchQuery(e, false)}
                   className=" border focus:outline-none w-full py-3 pl-2 rounded-lg text-md "
                   type="text"
                   placeholder="Search Your Meal"
-                  value={bannerSearchQuery}
                 />
-                <Button
-                  onClick={(e) => handleBannerSearchQuery(e, true)}
-                  classes="absolute top-[35%] right-[2%] bg-black py-2 px-3 text-sm rounded-md text-white "
-                >
+                <Button classes="absolute top-[35%] right-[2%] bg-black py-2 px-3 text-sm rounded-md text-white ">
                   Search
                 </Button>
               </div>

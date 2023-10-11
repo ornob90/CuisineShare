@@ -10,10 +10,11 @@ const RecipeFeed = () => {
   const { posts, favorites } = useDb();
 
   const [allPosts, setAllPosts] = useState([]);
-  const [sortedPosts, setSortedPosts] = useState([]);
+
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState("");
   const [categories, setCategories] = useState([]);
+
   const [sortBy, setSortBy] = useState("Sort By");
 
   const [category, setCategory] = useState("Category");
@@ -29,19 +30,6 @@ const RecipeFeed = () => {
   // console.log(filteredPosts);
 
   useEffect(() => {
-    // console.log(category);
-    // if (category === "Sort By" || category === "Category") {
-    //   setFilteredPosts(allPosts);
-    // } else if (category === "Latest Posts") {
-    //   setFilteredPosts(
-    //     allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
-    //   );
-    // } else {
-    //   setFilteredPosts(
-    //     allPosts.filter((post) => post[1].category === category)
-    //   );
-    // }
-
     if (sortBy === "Sort By") {
       if (category === "Category") {
         setFilteredPosts(allPosts);
@@ -77,9 +65,9 @@ const RecipeFeed = () => {
 
   useEffect(() => {
     // console.log(allPosts);
-    setSortedPosts(
-      allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
-    );
+    // setSortedPosts(
+    //   allPosts.sort((a, b) => b[1].createdAt.seconds - a[1].createdAt.seconds)
+    // );
 
     const allCategory = allPosts.map((post) => post[1].category);
 
@@ -97,12 +85,11 @@ const RecipeFeed = () => {
   const handleSearch = () => {
     console.log(query);
     if (!query) {
-      setAllPosts(Object.entries(posts));
       return;
     }
 
-    setSortedPosts(
-      allPosts.filter((post) => {
+    setFilteredPosts((prevPosts) =>
+      prevPosts.filter((post) => {
         return post[1].title.toLowerCase().includes(query.toLowerCase());
       })
     );

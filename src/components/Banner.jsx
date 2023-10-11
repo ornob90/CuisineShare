@@ -26,7 +26,10 @@ const Banner = () => {
               } relative z-1 w-full flex justify-center  duration-[.3s]`}
             >
               <div className="z-[1] relative w-[90%] sm:w-[55%] pt-4">
-                <Button classes="border border-white py-2 px-12 sm:px-14 bg-yellow-400 text-sm sm:text-base text-black font-bold ">
+                <Button
+                  onClick={() => navigate("/news-feed")}
+                  classes="border border-white py-2 px-12 sm:px-14 bg-yellow-400 text-sm sm:text-base text-black font-bold "
+                >
                   Explore
                 </Button>
               </div>

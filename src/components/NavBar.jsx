@@ -40,14 +40,7 @@ const NavBar = ({ users }) => {
       >
         <Button>Home</Button>
       </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
-        }
-        to="/about"
-      >
-        <Button>About</Button>
-      </NavLink>
+
       <NavLink
         className={({ isActive }) =>
           isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
@@ -63,6 +56,14 @@ const NavBar = ({ users }) => {
         to="/favorites"
       >
         <Button>Favorites</Button>
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "text-yellow-500 border-b-[2px] border-b-yellow-500" : ""
+        }
+        to="/about"
+      >
+        <Button>About</Button>
       </NavLink>
     </>
   );

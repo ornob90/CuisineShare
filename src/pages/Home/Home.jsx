@@ -4,6 +4,7 @@ import Banner from "../../components/Banner";
 import RecipeHighlight from "../../components/Shared/RecipeHighlight";
 import Button from "../../components/Shared/Button";
 import PrivateRoute from "../../routes/PrivateRoute";
+import { useOutletContext } from "react-router-dom";
 
 const Home = () => {
   const recipes = [
@@ -48,10 +49,15 @@ const Home = () => {
     },
   ];
 
+  const [bannerSearchQuery, handleBannerSearchQuery] = useOutletContext();
+
   return (
     <PrivateRoute>
       <Container>
-        <Banner />
+        <Banner
+          bannerSearchQuery={bannerSearchQuery}
+          handleBannerSearchQuery={handleBannerSearchQuery}
+        />
         <RecipeHighlight title="Super Delicious" recipes={recipes} />
         <RecipeHighlight title="Sweet Tooth" recipes={sweets} />
         <div className="my-10 bg-yellow-300 py-28 w-[90%] mx-auto flex flex-col justify-center items-center text-center">

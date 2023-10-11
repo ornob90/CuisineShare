@@ -9,6 +9,18 @@ import useDb from "../hooks/useDb";
 const Root = () => {
   const [menu, setMenu] = useState(false);
 
+  const [bannerSearchQuery, setBannerSearchQuery] = useState("");
+
+  const handleBannerSearchQuery = (e, reset) => {
+    if (reset) {
+      setBannerSearchQuery("");
+      return;
+    }
+    setBannerSearchQuery(e.target.value);
+  };
+
+  console.log(bannerSearchQuery);
+
   const handleMenu = () => {
     setMenu(!menu);
   };
@@ -23,7 +35,7 @@ const Root = () => {
     <div className="relative">
       <NavContext.Provider value={navInfo}>
         <NavBar users={users} />
-        <Outlet></Outlet>
+        <Outlet context={[bannerSearchQuery, handleBannerSearchQuery]}></Outlet>
         <Footer />
       </NavContext.Provider>
     </div>

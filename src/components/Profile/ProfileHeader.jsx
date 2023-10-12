@@ -20,14 +20,14 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
 
   return (
     <div>
-      <div className="w-full h-[250px] overflow-hidden ">
+      <div className="w-full h-[250px] overflow-hidden z-[2]">
         <img
           src="https://images.unsplash.com/photo-1504805572947-34fad45aed93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
           alt=""
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full z-[2]"
         />
       </div>
-      <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto gap-4 md:gap-0 ">
+      <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto gap-4 md:gap-0">
         <img
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80"
           alt=""
@@ -39,7 +39,11 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
           <p className="text-sm">Lorem ipsum dolor sit.</p>
         </div>
 
-        <div className="flex items-center justify-end gap-5 text-lg font-bold  col-span-2  ">
+        <div
+          className={`flex items-center justify-end gap-5 text-lg font-bold  col-span-2 ${
+            chatBoxOpen ? "" : ""
+          }`}
+        >
           <NavLink
             to={`/profile/${id}/profile-about`}
             className={({ isActive }) =>

@@ -34,7 +34,7 @@ const ProfileRecipes = () => {
 
   return (
     <div
-      className={`mt-20 grid grid-cols-1 gap-10 z-[-12] border border-black ${
+      className={`mt-20 grid grid-cols-1 gap-10 -z-10 ${
         profileRecipes?.length === 0 ? "hidden" : ""
       }`}
     >

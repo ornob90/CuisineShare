@@ -51,7 +51,7 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen, id }) => {
     <div
       className={`w-full sm:w-[70%] md:w-[50%] lg:w-[30%] h-[80%] sm:h-[60%] shadow-lg rounded-xl fixed  bg-white z-10 duration-[.3s] ${
         chatBoxOpen ? "bottom-0 right-0 md:right-[10%]" : "right-[-100%]"
-      } grid grid-cols-1 grid-rows-6 min-h-[300px] `}
+      } grid grid-cols-1 grid-rows-6 min-h-[300px] bg-red-500 z-[20]`}
     >
       <div className="row-span-5 border rounded-t-xl">
         <div className="w-full h-[15%] bg-yellow-400 rounded-t-xl flex justify-between items-center">
@@ -59,8 +59,8 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen, id }) => {
             <div className="h-[35px] w-[35px] rounded-full border-black border-2 ml-2"></div>
             <p className="font-bold">Kazi Towfiq</p>
           </div>
-
-          <p className="text-3xl ">
+          s
+          <p className="text-3xl z-10">
             <GrFormClose
               onClick={() => setChatBoxOpen(!chatBoxOpen)}
               className="duration-[.3s]"

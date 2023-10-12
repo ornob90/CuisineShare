@@ -20,7 +20,7 @@ const Profile = () => {
         setChatBoxOpen={setChatBoxOpen}
         id={id}
       />
-      <div className="w-[80%] mx-auto min-h-[400px] relative -z-10">
+      <div className="w-[80%] mx-auto min-h-[400px] relative">
         <Outlet context={{ id }} />
         <ProfileChatBox
           chatBoxOpen={chatBoxOpen}

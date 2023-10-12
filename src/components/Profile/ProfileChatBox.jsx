@@ -16,14 +16,14 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen, id }) => {
   useEffect(() => {
     setCurChats(
       chats
-        .filter(
+        ?.filter(
           (chat) =>
             (chat?.sender === user?.email &&
               chat?.receiver === users[id]?.email) ||
             (chat?.sender === users[id]?.email &&
               chat?.receiver === user?.email)
         )
-        .sort((a, b) => b?.createdAt.seconds - a?.createdAt.seconds)
+        .sort((a, b) => a?.createdAt?.seconds - b?.createdAt?.seconds)
     );
   }, [chats]);
 
@@ -51,7 +51,7 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen, id }) => {
     <div
       className={`w-full sm:w-[70%] md:w-[50%] lg:w-[30%] h-[80%] sm:h-[60%] shadow-lg rounded-xl fixed  bg-white z-10 duration-[.3s] ${
         chatBoxOpen ? "bottom-0 right-0 md:right-[10%]" : "right-[-100%]"
-      } grid grid-cols-1 grid-rows-6 min-h-[300px] bg-red-500 z-[20]`}
+      } grid grid-cols-1 grid-rows-6 min-h-[300px]  z-[20]`}
     >
       <div className="row-span-5 border rounded-t-xl">
         <div className="w-full h-[15%] bg-yellow-400 rounded-t-xl flex justify-between items-center">

@@ -6,7 +6,7 @@ import ProfileChatBox from "../../components/Profile/ProfileChatBox";
 
 const Profile = () => {
   const { id } = useParams();
-  const [chatBoxOpen, setChatBoxOpen] = useState(false);
+  const [chatBoxOpen, setChatBoxOpen] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {

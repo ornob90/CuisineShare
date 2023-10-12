@@ -3,7 +3,7 @@ import React from "react";
 const Button = ({ children, classes, onClick, type, disabled, onChange }) => {
   return (
     <button
-      disabled={disabled}
+      disabled={disabled ? disabled : false}
       type={type ? type : "submit"}
       onClick={onClick}
       onChange={onChange}

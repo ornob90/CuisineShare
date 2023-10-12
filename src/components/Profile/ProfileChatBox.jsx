@@ -1,8 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import Button from "../Shared/Button";
+import useDb from "../../hooks/useDb";
+import useAuth from "../../hooks/useAuth";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../../FireStore/firestore.config";
 
-const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen }) => {
+const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen, id }) => {
+  const { chats, users } = useDb();
+  const { user } = useAuth();
+  const [message, setMessage] = useState("");
+  const [curChats, setCurChats] = useState([]);
+  const chatMessageRef = useRef();
+
+  useEffect(() => {
+    setCurChats(
+      chats
+        .filter(
+          (chat) =>
+            (chat?.sender === user?.email &&
+              chat?.receiver === users[id]?.email) ||
+            (chat?.sender === users[id]?.email &&
+              chat?.receiver === user?.email)
+        )
+        .sort((a, b) => b?.createdAt.seconds - a?.createdAt.seconds)
+    );
+  }, [chats]);
+
+  const handleAddChats = async () => {
+    if (!message) return;
+
+    chatMessageRef.current.value = "";
+
+    const doc = {
+      sender: user?.email,
+      receiver: users[id]?.email,
+      message,
+      createdAt: serverTimestamp(),
+    };
+    const chatsRef = collection(db, "chats");
+
+    try {
+      await addDoc(chatsRef, doc);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div
       className={`w-full sm:w-[70%] md:w-[50%] lg:w-[30%] h-[80%] sm:h-[60%] shadow-lg rounded-xl fixed  bg-white z-10 duration-[.3s] ${
@@ -25,17 +69,19 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen }) => {
         </div>
 
         <ul className="space-y-2 mt-4 h-[80%] overflow-auto pr-2 min-h-[100px]">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-            <span key={item}>
-              <li className="w-full h-[15%] rounded-t-xl flex items-center gap-2">
-                <div className="h-[20px] w-[20px] rounded-full border-black border-2 ml-2"></div>
-                <p className="font-bold text-sm">Hello There {item}</p>
-              </li>
-
-              <li className="w-full h-[15%] rounded-t-xl flex flex-row-reverse items-center gap-2">
-                <div className="h-[20px] w-[20px] rounded-full border-black border-2"></div>
-                <p className="font-bold text-sm">Hello There</p>
-              </li>
+          {curChats?.map((chat) => (
+            <span key={chat?.id}>
+              {chat?.sender !== user?.email ? (
+                <li className="w-full h-[15%] rounded-t-xl flex items-center gap-2">
+                  <div className="h-[20px] w-[20px] rounded-full border-black border-2 ml-2"></div>
+                  <p className="font-bold text-sm">{chat?.message} </p>
+                </li>
+              ) : (
+                <li className="w-full h-[15%] rounded-t-xl flex flex-row-reverse items-center gap-2">
+                  <div className="h-[20px] w-[20px] rounded-full border-black border-2"></div>
+                  <p className="font-bold text-sm">{chat?.message}</p>
+                </li>
+              )}
             </span>
           ))}
         </ul>
@@ -47,8 +93,16 @@ const ProfileChatBox = ({ chatBoxOpen, setChatBoxOpen }) => {
           id=""
           placeholder="Type message here.."
           className="col-span-3 pl-2 border w-[80%] h-[60%] focus:outline-none rounded-lg"
+          onChange={(e) => setMessage(e.target.value)}
+          ref={chatMessageRef}
         />
-        <Button classes="col-span-1 w-[20%] h-[60%] ">Send</Button>
+        <Button
+          onClick={handleAddChats}
+          type="button"
+          classes="col-span-1 w-[20%] h-[60%] "
+        >
+          Send
+        </Button>
       </div>
     </div>
   );

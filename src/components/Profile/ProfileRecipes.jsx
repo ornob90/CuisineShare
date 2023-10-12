@@ -33,8 +33,12 @@ const ProfileRecipes = () => {
   }, [posts, id]);
 
   return (
-    <div className="mt-20 grid grid-cols-1 gap-10">
-      {profileRecipes.map((post) => (
+    <div
+      className={`mt-20 grid grid-cols-1 gap-10 z-[-12] border border-black ${
+        profileRecipes?.length === 0 ? "hidden" : ""
+      }`}
+    >
+      {profileRecipes?.map((post) => (
         <RecipePost key={posts[post].id} post={posts[post]} />
       ))}
     </div>

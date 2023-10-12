@@ -93,7 +93,7 @@ const RecipePost = ({ post }) => {
   };
   const handleAddFavorite = async () => {
     try {
-      const curUserEmail = user.email;
+      const curUserEmail = user?.email;
 
       const newData = {
         email: curUserEmail,
@@ -174,7 +174,7 @@ const RecipePost = ({ post }) => {
             readOnly
           />
           <div className="flex gap-4 text-2xl">
-            {likes && likes[curPostID]?.email === user.email ? (
+            {likes && likes[curPostID]?.email === user?.email ? (
               <AiTwotoneHeart
                 className="text-3xl text-yellow-400 duration-300 active:scale-95"
                 onClick={handleDelLikes}
@@ -187,7 +187,7 @@ const RecipePost = ({ post }) => {
             )}
 
             {favorites[curPostID] &&
-            favorites[curPostID]?.email === user.email ? (
+            favorites[curPostID]?.email === user?.email ? (
               <FaBookmark
                 className="duration-300 active:scale-95"
                 onClick={handleDelFavorite}

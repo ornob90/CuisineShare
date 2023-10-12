@@ -146,7 +146,7 @@ const PostForm = ({ handleModal }) => {
   };
 
   return (
-    <div className="min-h-[300px] w-[80%]] h-[70%] font-sans">
+    <div className="min-h-[300px] w-[80%]] h-[70%] font-sans z-12">
       <form
         className="grid grid-cols-1 lg:grid-cols-2 gap-4 "
         onSubmit={handlePostData}
@@ -213,13 +213,13 @@ const PostForm = ({ handleModal }) => {
           />
         </div>
         <div className="flex items-center  lg:justify-end lg:col-span-2 col-span-2 gap-4">
-          <Button
+          <button
             onClick={handleModal}
             type="button"
-            classes="bg-black text-white py-1 px-3 rounded-lg font-bold"
+            className="bg-black text-white py-1 px-3 rounded-lg font-bold active:scale-95 transition-all duration-[.2s] ease-in-out"
           >
             Close
-          </Button>
+          </button>
           <Button
             onClick={handleModal}
             disabled={submitDisabled}

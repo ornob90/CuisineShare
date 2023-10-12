@@ -11,12 +11,12 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
   const { user } = useAuth();
   const { users } = useDb();
 
-  console.log(users[id]?.email, user?.email);
+  // console.log(users[id]?.email, user?.email);
 
   const handleModal = () => {
     setModal(!modal);
   };
-  console.log(users[id]?.email, user?.email);
+  // console.log(users[id]?.email, user?.email);
 
   return (
     <div>

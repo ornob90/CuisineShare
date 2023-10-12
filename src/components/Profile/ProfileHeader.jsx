@@ -11,7 +11,7 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
   const { user } = useAuth();
   const { users } = useDb();
 
-  // console.log(users, user.email);
+  console.log(users[id]?.email, user?.email);
 
   const handleModal = () => {
     setModal(!modal);
@@ -60,13 +60,17 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
           >
             Posts
           </NavLink>
-          <Button
-            onClick={() => setChatBoxOpen(!chatBoxOpen)}
-            classes="px-3 py-1 text-base  text-white  bg-yellow-500 rounded-lg"
-          >
-            Message
-          </Button>
 
+          {users[id]?.email !== user?.email ? (
+            <Button
+              onClick={() => setChatBoxOpen(!chatBoxOpen)}
+              classes="px-3 py-1 text-base  text-white  bg-yellow-500 rounded-lg"
+            >
+              Message
+            </Button>
+          ) : (
+            ""
+          )}
           {users[id]?.email === user?.email ? (
             <Button
               classes="bg-black text-white text-base px-3 py-1 rounded-lg"

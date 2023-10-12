@@ -10,6 +10,7 @@ const DbProviders = ({ children }) => {
   const [reviews, setReviews] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [chats, setChats] = useState([]);
 
   const [dataLoading, setDataLoading] = useState(true);
 
@@ -18,6 +19,7 @@ const DbProviders = ({ children }) => {
   const reviewsRef = collection(db, "reviews");
   const favoriteRef = collection(db, "favorites");
   const likesRef = collection(db, "likes");
+  const chatsRef = collection(db, "chats");
 
   useEffect(() => {
     const unsubscribe = handleSnaps("users", usersRef, setUsers);
@@ -55,12 +57,18 @@ const DbProviders = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = handleSnaps("chats", chatsRef, setChats);
+
+    return () => unsubscribe();
+  }, []);
+
   const handleSnaps = (name, collectionRef, setData) => {
     const unsubscribe = onSnapshot(collectionRef, (querySnapShot) => {
       const objects = {};
       const arrays = [];
 
-      if (name === "reviews") {
+      if (name === "reviews" || name === "chats") {
         querySnapShot.forEach((doc) => {
           // items.push(doc.data());
           arrays.push({ ...doc.data(), id: doc.id });
@@ -105,6 +113,7 @@ const DbProviders = ({ children }) => {
     reviews,
     favorites,
     likes,
+    chats,
     dataLoading,
     usersByEmail,
   };

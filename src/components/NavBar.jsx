@@ -15,11 +15,13 @@ const NavBar = ({ users }) => {
   const navigate = useNavigate();
   const { user, signOutMethod } = useAuth();
 
+  // console.log(users);
+
   useEffect(() => {
     if (users) {
       setCurUserId(
         Object.keys(users).find((id) => {
-          // console.log(id);
+          // console.log(users[id]?.email, user?.email);
           return users[id]?.email === user?.email;
         })
       );

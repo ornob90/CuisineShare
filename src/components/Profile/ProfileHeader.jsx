@@ -27,7 +27,7 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
           className="object-cover w-full h-full"
         />
       </div>
-      <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto  ">
+      <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto gap-4 md:gap-0 ">
         <img
           src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80"
           alt=""

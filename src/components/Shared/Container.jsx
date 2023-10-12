@@ -5,7 +5,7 @@ const Container = ({ children, auth }) => {
     <div
       className={` relative max-w-[1440px] mx-auto ${
         auth ? "mt-0" : "mt-[5%]"
-      }`}
+      } `}
     >
       {children}
     </div>

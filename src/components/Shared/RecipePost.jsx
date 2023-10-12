@@ -69,7 +69,7 @@ const RecipePost = ({ post }) => {
 
   const handleAddLikes = async () => {
     try {
-      const curUserEmail = user.email;
+      const curUserEmail = user?.email;
 
       const newData = {
         email: curUserEmail,

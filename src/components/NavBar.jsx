@@ -20,7 +20,7 @@ const NavBar = ({ users }) => {
       setCurUserId(
         Object.keys(users).find((id) => {
           // console.log(id);
-          return users[id].email === user.email;
+          return users[id]?.email === user?.email;
         })
       );
     }

@@ -17,7 +17,7 @@ const ProfileRecipes = () => {
   useEffect(() => {
     const profilePostIds = Object.keys(posts).filter((post) => {
       // console.log(posts[post].userEmail, users[id].email);
-      return posts[post].userEmail === users[id].email;
+      return posts[post]?.userEmail === users[id]?.email;
     });
 
     // setProfileRecipes(

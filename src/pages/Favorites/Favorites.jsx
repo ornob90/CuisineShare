@@ -37,7 +37,7 @@ const Favorites = () => {
         return favorites[postId].email === user.email;
       })
     );
-    console.log(favoritePosts);
+    // console.log(favoritePosts);
   }, [favorites]);
 
   return (

@@ -37,7 +37,7 @@ const Favorites = () => {
         return favorites[postId].email === user.email;
       })
     );
-    console.log(posts[favoritePosts[0]]);
+    console.log(favoritePosts);
   }, [favorites]);
 
   return (
@@ -51,8 +51,8 @@ const Favorites = () => {
             {/* {sweets.map(({ id, image, title }) => (
               <RecipeCard key={id} image={image} title={title} />
             ))} */}
-            {favoritePosts.map((postId) => (
-              <RecipeCard key={postId} posts={posts[postId]} />
+            {favoritePosts?.map((postId) => (
+              <RecipeCard key={postId} post={posts[postId]} />
             ))}
           </div>
         </div>

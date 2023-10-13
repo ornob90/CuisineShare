@@ -54,7 +54,8 @@ const RecipePost = ({ post }) => {
   const { usersByEmail, favorites, likes, reviews } = useDb();
   const { user } = useAuth();
 
-  const userId = usersByEmail[userEmail].id;
+  const userId = usersByEmail[userEmail]?.id;
+  const dpImage = usersByEmail[userEmail]?.imagePath;
 
   useEffect(() => {
     let totalRating = 0;
@@ -182,7 +183,13 @@ const RecipePost = ({ post }) => {
             <div
               onClick={() => navigate(`/profile/${userId}`)}
               className="h-[40px] w-[40px] rounded-full border-black border-2"
-            ></div>
+            >
+              {dpImage ? (
+                <img src={dpImage} alt="" className="rounded-full" />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
         <div className="flex items-center justify-between">

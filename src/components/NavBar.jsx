@@ -7,12 +7,16 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import NavContext from "../context/NavContext";
 import useAuth from "../hooks/useAuth";
 import PrivateRoute from "../routes/PrivateRoute";
+import useDb from "../hooks/useDb";
 
 const NavBar = ({ users }) => {
   const { menu, handleMenu } = useContext(NavContext);
   const [curUserId, setCurUserId] = useState(null);
   const navigate = useNavigate();
   const { user, signOutMethod } = useAuth();
+  const { usersByEmail } = useDb();
+
+  const [curDP, setCurDp] = useState("");
 
   // console.log(users);
 
@@ -24,10 +28,12 @@ const NavBar = ({ users }) => {
           return users[id]?.email === user?.email;
         })
       );
+
+      setCurDp(usersByEmail[user?.email]?.imagePath);
     }
 
     // console.log(users);
-  }, [users, user]);
+  }, [users, user, usersByEmail]);
 
   // console.log(curUserId);
 
@@ -89,7 +95,13 @@ const NavBar = ({ users }) => {
                 <div
                   onClick={() => navigate(`/profile/${curUserId}/posts`)}
                   className="h-[40px] w-[40px] rounded-full border-black border-2"
-                ></div>
+                >
+                  {curDP ? (
+                    <img src={curDP} alt="" className="rounded-full" />
+                  ) : (
+                    ""
+                  )}
+                </div>
 
                 <Button
                   onClick={() => signOutMethod()}

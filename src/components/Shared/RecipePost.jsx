@@ -1,5 +1,5 @@
 import { Rating } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import useDb from "../../hooks/useDb";
 import useAuth from "../../hooks/useAuth";
+import DynamicRating from "./DynamicRating";
 
 const RecipePost = ({ post }) => {
   const months = [
@@ -48,10 +49,28 @@ const RecipePost = ({ post }) => {
   const favoritesRef = collection(db, "favorites");
   const likesRef = collection(db, "likes");
 
-  const { usersByEmail, favorites, likes } = useDb();
+  const [avgRating, setAvgRating] = useState(1);
+
+  const { usersByEmail, favorites, likes, reviews } = useDb();
   const { user } = useAuth();
 
   const userId = usersByEmail[userEmail].id;
+
+  useEffect(() => {
+    let totalRating = 0;
+    let numOfReview = 0;
+
+    reviews?.forEach((review) => {
+      // console.log(review?.postId, curPostID);
+      if (review?.postID === curPostID) {
+        totalRating += review.rating;
+        numOfReview++;
+      }
+      setAvgRating(parseInt(totalRating / numOfReview));
+    });
+
+    console.log(totalRating);
+  }, [reviews]);
 
   const getDate = (seconds, nanoseconds) => {
     const milliseconds = seconds * 1000 + nanoseconds / 1000000;
@@ -167,12 +186,7 @@ const RecipePost = ({ post }) => {
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <Rating
-            className="pt-4 z-[-1]"
-            name="read-only"
-            value={3.5}
-            readOnly
-          />
+          <DynamicRating rating={avgRating} />
           <div className="flex gap-4 text-2xl">
             {likes && likes[curPostID]?.email === user?.email ? (
               <AiTwotoneHeart
@@ -212,7 +226,7 @@ const RecipePost = ({ post }) => {
 
         <div>
           <Button
-            onClick={() => navigate(`/details/${id}`)}
+            onClick={() => navigate(`/details/${curPostID}`)}
             classes="bg-black text-white px-4 py-2 rounded-lg"
           >
             View Details

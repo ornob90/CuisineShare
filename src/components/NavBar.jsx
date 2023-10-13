@@ -7,7 +7,6 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import NavContext from "../context/NavContext";
 import useAuth from "../hooks/useAuth";
 import PrivateRoute from "../routes/PrivateRoute";
-import useDb from "../hooks/useDb";
 
 const NavBar = ({ users }) => {
   const { menu, handleMenu } = useContext(NavContext);

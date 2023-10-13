@@ -5,6 +5,8 @@ import PostForm from "./PostForm";
 import useAuth from "../../hooks/useAuth";
 import useDb from "../../hooks/useDb";
 
+import { IoMdAddCircle } from "react-icons/io";
+
 const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
   const [modal, setModal] = useState(false);
 
@@ -27,12 +29,16 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
           className="object-cover w-full h-full z-[2]"
         />
       </div>
+
       <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto gap-4 md:gap-0">
-        <img
-          src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80"
-          alt=""
-          className="object-cover rounded-full w-[150px] h-[150px] col-span-1"
-        />
+        <div className="w-[150px] h-[150px] rounded-full relative">
+          <img
+            src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80"
+            alt=""
+            className="object-cover rounded-full col-span-1 w-full h-full"
+          />
+          <IoMdAddCircle className="bg-black rounded-full text-white text-3xl absolute bottom-[3%] right-[5%]" />
+        </div>
 
         <div className="col-span-2  ">
           <h1 className="text-3xl font-bold">{users[id]?.userName}</h1>

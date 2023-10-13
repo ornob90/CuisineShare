@@ -6,9 +6,15 @@ import useAuth from "../../hooks/useAuth";
 import useDb from "../../hooks/useDb";
 
 import { IoMdAddCircle } from "react-icons/io";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import { doc, updateDoc } from "firebase/firestore";
+import { db, storage } from "../../FireStore/firestore.config";
 
 const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
   const [modal, setModal] = useState(false);
+  const [imgUrl, setImgUrl] = useState(null);
+  const [uploadDisabled, setUploadDisabled] = useState(true);
 
   const { user } = useAuth();
   const { users } = useDb();
@@ -19,6 +25,31 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
     setModal(!modal);
   };
   // console.log(users[id]?.email, user?.email);
+
+  const handleImageUpload = async (e) => {
+    const imageFile = e.target.files[0];
+    const userEmail = user?.email.replace(/[\W_]/g, "");
+    const imageRef = ref(storage, `dp/${userEmail}+${v4()}`);
+
+    const snapshot = await uploadBytes(imageRef, imageFile);
+
+    const url = await getDownloadURL(snapshot.ref);
+    setImgUrl(url);
+
+    await setTimeout(() => setUploadDisabled(false), 250);
+  };
+
+  const handleUpdateImageUrlToDB = async () => {
+    if (!imgUrl) return;
+
+    const userDoc = doc(db, "users", id);
+
+    const updatedData = {
+      imagePath: imgUrl,
+    };
+
+    await updateDoc(userDoc, updatedData);
+  };
 
   return (
     <div>
@@ -33,11 +64,54 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
       <div className="mt-[-15%] sm:mt-[-5%] md:items-end flex flex-col justify-center  items-center md:grid md:grid-cols-5 lg:grid-cols-5 w-[80%] mx-auto gap-4 md:gap-0">
         <div className="w-[150px] h-[150px] rounded-full relative">
           <img
-            src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1385&q=80"
+            src={
+              users[id]?.imagePath
+                ? users[id]?.imagePath
+                : `https://beforeigosolutions.com/wp-content/uploads/2021/12/dummy-profile-pic-300x300-1.png`
+            }
             alt=""
             className="object-cover rounded-full col-span-1 w-full h-full"
           />
-          <IoMdAddCircle className="bg-black rounded-full text-white text-3xl absolute bottom-[3%] right-[5%]" />
+
+          <IoMdAddCircle
+            onClick={() => {
+              document.getElementById("my_modal_1").showModal();
+              setUploadDisabled(true);
+            }}
+            className="bg-black rounded-full text-white text-3xl absolute bottom-[3%] right-[5%]"
+          />
+
+          <dialog id="my_modal_1" className="modal w-[90%]">
+            <div className="modal-box flex flex-col gap-4 justify-center ">
+              <label className="text-xl font-bold file:label  font-sans">
+                Update Profile Picture
+              </label>
+              <input
+                name="image"
+                type="file"
+                className="col-span-2 file:font-sans file:text-sm file:font-medium w-full max-w-xs text-sm font-sans focus:outline-none"
+                onChange={handleImageUpload}
+              />
+              <div className="modal-action w-full flex justify-end">
+                <form method="dialog">
+                  <Button
+                    classes={` bg-black text-white hover:bg-black hover:text-white py-2 px-3 rounded-lg`}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    classes={` bg-black text-white hover:bg-black hover:text-white py-2 px-3 rounded-lg ml-2 ${
+                      uploadDisabled ? "bg-gray-400 hover:bg-gray-400" : ""
+                    }`}
+                    disabled={uploadDisabled}
+                    onClick={handleUpdateImageUrlToDB}
+                  >
+                    Upload
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
 
         <div className="col-span-2  ">

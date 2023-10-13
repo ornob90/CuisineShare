@@ -11,7 +11,7 @@ const Profile = () => {
   const { users } = useDb();
   const { user } = useAuth();
   const [chatBoxOpen, setChatBoxOpen] = useState(
-    users[id].email !== user.email
+    users[id]?.email !== user?.email
   );
   const navigate = useNavigate();
 

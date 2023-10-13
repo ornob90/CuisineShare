@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   const createUser = async (name, email, password) => {
     setLoading(true);

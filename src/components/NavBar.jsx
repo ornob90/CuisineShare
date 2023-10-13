@@ -28,7 +28,7 @@ const NavBar = ({ users }) => {
     }
 
     // console.log(users);
-  }, [users]);
+  }, [users, user]);
 
   // console.log(curUserId);
 

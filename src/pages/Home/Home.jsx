@@ -53,8 +53,8 @@ const Home = () => {
     <PrivateRoute>
       <Container>
         <Banner />
-        <RecipeHighlight title="Super Delicious" recipes={recipes} />
-        <RecipeHighlight title="Sweet Tooth" recipes={sweets} />
+        <RecipeHighlight title="Recent Recipes" recipes={recipes} />
+
         <div className="my-10 bg-yellow-300 py-28 w-[90%] mx-auto flex flex-col justify-center items-center text-center">
           <h1 className="mb-2 text-2xl font-semibold md:text-4xl">
             Deliciousness To Your Inbox

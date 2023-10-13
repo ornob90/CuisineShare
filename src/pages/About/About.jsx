@@ -13,9 +13,9 @@ const About = () => {
           <h1 className="text-3xl font-bold mb-6">Kazi Towfiq</h1>
           <p className="mb-2">
             Hello, I'm Kazi Towfiq. This project is like a playground for me to
-            show off my skills in React and Firebase. It's a journey filled with
-            coding, and endless learning. I've built something cool, and I'm
-            excited to share it with you.
+            show case my skills in React and Firebase. It's a journey filled
+            with coding, and endless learning. I've built something cool, and
+            I'm excited to share it with you.
           </p>
           <p className=" ">
             As we dive into this project together, you'll see the magic of

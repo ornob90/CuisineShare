@@ -73,13 +73,17 @@ const ProfileHeader = ({ id, chatBoxOpen, setChatBoxOpen }) => {
             className="object-cover rounded-full col-span-1 w-full h-full"
           />
 
-          <IoMdAddCircle
-            onClick={() => {
-              document.getElementById("my_modal_1").showModal();
-              setUploadDisabled(true);
-            }}
-            className="bg-black rounded-full text-white text-3xl absolute bottom-[3%] right-[5%]"
-          />
+          {user?.email === users[id]?.email ? (
+            <IoMdAddCircle
+              onClick={() => {
+                document.getElementById("my_modal_1").showModal();
+                setUploadDisabled(true);
+              }}
+              className="bg-black rounded-full text-white text-3xl absolute bottom-[3%] right-[5%]"
+            />
+          ) : (
+            ""
+          )}
 
           <dialog id="my_modal_1" className="modal w-[90%]">
             <div className="modal-box flex flex-col gap-4 justify-center ">

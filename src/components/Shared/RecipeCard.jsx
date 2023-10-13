@@ -1,10 +1,15 @@
 import React from "react";
 import { Rating } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const RecipeCard = ({ posts, image, title }) => {
-  const { img, title: dbTitle } = posts || {};
+const RecipeCard = ({ post, image, title }) => {
+  const { img, title: dbTitle, id } = post || {};
+  const navigate = useNavigate();
   return (
-    <div className={`duration-300 min-h-[200px]`}>
+    <div
+      onClick={() => navigate(`/details/${id}`)}
+      className={`duration-300 min-h-[200px] hover:scale-[1.01]`}
+    >
       <div className="w-full h-[65%] object-cover">
         <img
           src={img || image}

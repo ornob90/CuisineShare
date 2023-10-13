@@ -4,6 +4,11 @@
 
 This project is a Recipe Sharing Website built with React, Firebase, and React Router. It's a platform for culinary enthusiasts to come together, share recipes, and celebrate the joy of home-cooked meals. The site allows users to explore and post recipes, connect with others, and engage in the magic of cooking and technology.
 
+## Diagram
+
+![Untitled](https://github.com/ornob90/CuisineShare/assets/80613555/13c0c1b6-714d-4177-9ade-7e15072b86a2)
+
+
 ## Features
 
 ### User Authentication
